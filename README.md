@@ -1,6 +1,6 @@
 # Oddle Backend Challenge - V2
 
-Welcome to Oddle Challenge
+**Welcome to Oddle Challenge**
 
 ## Table of contents
 * [General info](#general-info)
