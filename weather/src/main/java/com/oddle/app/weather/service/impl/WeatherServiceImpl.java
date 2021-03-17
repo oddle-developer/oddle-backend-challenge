@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oddle.app.weather.feign.client.OpenWeatherClient;
 import com.oddle.app.weather.mapper.WeatherDataMapper;
-import com.oddle.app.weather.models.repositories.Weather;
 import com.oddle.app.weather.models.repositories.WeatherRecord;
 import com.oddle.app.weather.models.rest.Response;
 import com.oddle.app.weather.models.rest.WeatherData;
@@ -17,10 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 

@@ -6,8 +6,8 @@ import feign.Feign;
 import feign.Logger;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
-import feign.form.FormEncoder;
 import feign.jackson.JacksonDecoder;
+import feign.jackson.JacksonEncoder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class FeignClientConfig {
     @Bean
     public OpenWeatherClient openWeatherClient() {
 
-        return getFeignBuilder(OpenWeatherClient.class, openWeatherUrl, Logger.Level.FULL, new BaseSvcErrorDecoder(), new FormEncoder());
+        return getFeignBuilder(OpenWeatherClient.class, openWeatherUrl, Logger.Level.FULL, new BaseSvcErrorDecoder(), new JacksonEncoder());
 
     }
 

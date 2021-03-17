@@ -28,7 +28,6 @@ public class WeatherDataMapper {
       .base(data.getBase())
       .coordinateLongitude(data.getCoordinate().getLongitude())
       .coordinateLatitude(data.getCoordinate().getLatitude())
-      //.weathers(getWeathers(data.getWeather()))
       .mainTemperature(data.getMain().getTemperature())
       .mainFeelsLike(data.getMain().getFeelsLike())
       .mainTempMin(data.getMain().getTempMin())

@@ -48,7 +48,5 @@ public class BaseSvcErrorDecoder implements ErrorDecoder {
             return new HttpServerErrorException(statusCode, statusText, responseHeaders, responseBody, null);
         }
         return delegate.decode(methodKey, response);
-        //return errorStatus(methodKey, response);
-        //return new ResponseStatusException(HttpStatus.valueOf(response.status()), "Error");
     }
 }

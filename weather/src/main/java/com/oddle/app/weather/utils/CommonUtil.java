@@ -7,8 +7,8 @@ import java.util.Date;
 
 public class CommonUtil {
   public static String formatDate(Date date){
+
     if(date == null) return null;
-    //SimpleDateFormat sdf = new SimpleDateFormat(ApplicationConstants.DATE_PATTERN_WITH_TZ);
     SimpleDateFormat sdf = new SimpleDateFormat(ApplicationConstants.DATE_PATTERN);
     return sdf.format(date);
   }
