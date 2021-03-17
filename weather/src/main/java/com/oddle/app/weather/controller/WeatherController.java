@@ -64,7 +64,7 @@ public class WeatherController {
             return ResponseEntity.ok().body(Response.builder().code("100")
                 .message("Data successfully removed.").build());
         else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Response.builder().code("400")
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Response.builder().code("404")
           .message("Weather ID not exists.").build());
 
     }
@@ -72,7 +72,7 @@ public class WeatherController {
     @PutMapping(value = "/record/{weather_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Object> updateWeatherData(@NotNull @PathVariable("weather_id") String weatherId, @NotNull @RequestBody WeatherData weatherData){
         if(!weatherService.checkWeatherIdExist(weatherId))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Response.builder().code("400")
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Response.builder().code("404")
               .message("Weather ID not exists.").build());
 
         return ResponseEntity.ok().body(Response.builder().code("100")

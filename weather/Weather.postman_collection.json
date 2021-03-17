@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "c4282543-d1f4-42a7-8f23-f079d93b22ce",
+		"name": "Weather",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Weather By City",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?q=manila&appid=10b9ba03011a6e8bbc0935e7808cd926",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "manila"
+						},
+						{
+							"key": "appid",
+							"value": "10b9ba03011a6e8bbc0935e7808cd926"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather City",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/weather/city/manila",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"weather",
+						"city",
+						"manila"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather History",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/weather/history/city/manila",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"weather",
+						"history",
+						"city",
+						"manila"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Weather Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coord\": {\n        \"lon\": 120.9822,\n        \"lat\": 14.6042\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02d\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 304.46,\n        \"feels_like\": 306.42,\n        \"temp_min\": 303.71,\n        \"temp_max\": 305.37,\n        \"pressure\": 1008,\n        \"humidity\": 66\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 5.66,\n        \"deg\": 260\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1615972016,\n    \"sys\": {\n        \"type\": 1,\n        \"id\": 8160,\n        \"country\": \"PH\",\n        \"sunrise\": 1615932153,\n        \"sunset\": 1615975590\n    },\n    \"timezone\": 28800,\n    \"id\": 1701668,\n    \"name\": \"Manila\",\n    \"cod\": 200\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/weather/data/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"weather",
+						"data",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/weather/record/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"weather",
+						"record",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Weather Data",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coord\": {\n        \"lon\": 120.9822,\n        \"lat\": 14.6042\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02d\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 304.46,\n        \"feels_like\": 306.42,\n        \"temp_min\": 303.71,\n        \"temp_max\": 305.37,\n        \"pressure\": 1008,\n        \"humidity\": 66\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 5.66,\n        \"deg\": 260\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1615972016,\n    \"sys\": {\n        \"type\": 1,\n        \"id\": 8160,\n        \"country\": \"PH\",\n        \"sunrise\": 1615932153,\n        \"sunset\": 1615975590\n    },\n    \"timezone\": 28800,\n    \"id\": 1701668,\n    \"name\": \"Manila\",\n    \"cod\": 200\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/weather/record/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"weather",
+						"record",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
