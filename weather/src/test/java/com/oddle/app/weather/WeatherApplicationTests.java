@@ -39,6 +39,7 @@ class WeatherApplicationTests {
 					.contentType(MediaType.TEXT_HTML))
 					.andExpect(status().isOk())
 					.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+					.andExpect(jsonPath("$.id").exists())
 					.andExpect(jsonPath("$.weather").exists())
 					.andExpect(jsonPath("$.weather.condition").exists())
 					.andExpect(jsonPath("$.weather.description").exists())
@@ -48,10 +49,50 @@ class WeatherApplicationTests {
 					.andExpect(jsonPath("$.extend.temp_max").exists())
 					.andExpect(jsonPath("$.extend.humidity").exists())
 					.andExpect(jsonPath("$.visibility").exists())
-					.andExpect(jsonPath("$.wind_speed").exists());
+					.andExpect(jsonPath("$.wind_speed").exists())
+					.andExpect(jsonPath("$.retrieval_time").exists());
 		} catch (Exception exception) {
 			fail();
 		}
 	}
 
+	@Test
+	public void shouldReturnStatus404WhenNotProvideCityWhenSearch() {
+		fail();
+	}
+
+	@Test
+	public void shouldReturnStatus404WhenRequestInvalidCityWhenSearch() {
+		fail();
+	}
+
+	@Test
+	public void shouldReturnPayloadForAGivenId() {
+		fail();
+	}
+
+	@Test
+	public void shouldReturnPayloadForAGivenCityAndTime() {
+		fail();
+	}
+
+	@Test
+	public void shouldSaveWeatherPayloadForAGivenCityAndReturnId() {
+		fail();
+	}
+
+	@Test
+	public void shouldReturnHistoricalWeatherPayloadForAGivenCity() {
+		fail();
+	}
+
+	@Test
+	public void shouldRemoveWeatherRecordForAGivenId() {
+		fail();
+	}
+
+	@Test
+	public void shouldUpdateWeatherRecordForAGivenId() {
+		fail();
+	}
 }
