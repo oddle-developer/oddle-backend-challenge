@@ -35,10 +35,20 @@ class WeatherApplicationTests {
 		try {
 			mockMvc.perform(MockMvcRequestBuilders
 					.get("/api/current")
-					.param("city", "hanoi"))
+					.param("city", "hanoi")
+					.contentType(MediaType.TEXT_HTML))
 					.andExpect(status().isOk())
 					.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-					.andExpect(jsonPath("$.weather").exists());
+					.andExpect(jsonPath("$.weather").exists())
+					.andExpect(jsonPath("$.weather.condition").exists())
+					.andExpect(jsonPath("$.weather.description").exists())
+					.andExpect(jsonPath("$.extend").exists())
+					.andExpect(jsonPath("$.extend.temp-avg").exists())
+					.andExpect(jsonPath("$.extend.temp_min").exists())
+					.andExpect(jsonPath("$.extend.temp_max").exists())
+					.andExpect(jsonPath("$.extend.humidity").exists())
+					.andExpect(jsonPath("$.visibility").exists())
+					.andExpect(jsonPath("$.wind_speed").exists());
 		} catch (Exception exception) {
 			fail();
 		}
