@@ -14,18 +14,21 @@ import java.math.BigDecimal;
 public class Weather extends OddleEntity {
 
     @Basic
-    private String condition;
+    private String weatherCondition;
 
     @Basic
-    private String description;
+    private String conditionDescription;
 
-    @Column(name = "temp_avg", columnDefinition = "DECIMAL(19,4)")
+    @Basic
+    @Column(precision = 19, scale = 4)
     private BigDecimal tempAvg;
 
-    @Column(name = "temp_min", columnDefinition = "DECIMAL(19,4)")
+    @Basic
+    @Column(precision = 19, scale = 4)
     private BigDecimal tempMin;
 
-    @Column(name = "temp_max", columnDefinition = "DECIMAL(19,4)")
+    @Basic
+    @Column(precision = 19, scale = 4)
     private BigDecimal tempMax;
 
     @Basic
@@ -35,6 +38,5 @@ public class Weather extends OddleEntity {
     private int visibility;
 
     @Basic
-    @Column(name = "wind_speed", columnDefinition = "DOUBLE")
     private double windSpeed;
 }
