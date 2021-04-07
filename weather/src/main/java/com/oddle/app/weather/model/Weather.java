@@ -3,9 +3,7 @@ package com.oddle.app.weather.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -39,4 +37,7 @@ public class Weather extends OddleEntity {
 
     @Basic
     private double windSpeed;
+
+    @ManyToOne
+    private City city;
 }
