@@ -10,7 +10,6 @@ import javax.persistence.PrePersist;
 import java.util.UUID;
 
 @Data
-@Entity
 @MappedSuperclass
 @EqualsAndHashCode
 public abstract class OddleEntity {
