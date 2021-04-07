@@ -18,6 +18,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'mysql:mysql-connector-java'
     testImplementation group: 'com.h2database', name: 'h2', version: '1.4.197'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+
 }
 
 test {
