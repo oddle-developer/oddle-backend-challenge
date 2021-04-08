@@ -3,10 +3,8 @@ package com.oddle.app.weather.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Data
@@ -15,6 +13,14 @@ import java.util.UUID;
 public abstract class OddleEntity {
     @Id
     private String id;
+
+    @Basic
+    @Column(name = "create_time")
+    private Timestamp createTime;
+
+    @Basic
+    @Column(name = "update_time")
+    private Timestamp updateTime;
 
     @PrePersist
     public void generateId() {

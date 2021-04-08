@@ -2,11 +2,15 @@ package com.oddle.app.weather.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.oddle.app.weather.model.Weather;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Map;
 
-@Data
+/**
+ * This DTO class is used for Data Transfer and JSON Marshmallow
+ */
 @JsonPropertyOrder({
         WeatherResponse.JSON_ID,
         WeatherResponse.JSON_WEATHER,
@@ -14,7 +18,9 @@ import java.util.Map;
         WeatherResponse.JSON_VISIBILITY,
         WeatherResponse.JSON_WIND_SPEED,
 })
-public class WeatherResponse {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class WeatherResponse extends Weather {
 
     public static final String JSON_ID = "id";
     public static final String JSON_WEATHER = "weather";

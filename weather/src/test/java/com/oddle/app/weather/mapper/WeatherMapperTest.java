@@ -17,7 +17,7 @@ public class WeatherMapperTest {
     /**
      * The Test Subject
      */
-    private static WeatherMapper weatherResponse;
+    private static WeatherMapper weatherMapper;
 
     /**
      * The Test Stub
@@ -26,7 +26,7 @@ public class WeatherMapperTest {
 
     @BeforeAll
     public static void initSubject() {
-        weatherResponse = WeatherMapper.INSTANCE;
+        weatherMapper = WeatherMapper.INSTANCE;
     }
 
     @BeforeEach
@@ -46,7 +46,7 @@ public class WeatherMapperTest {
         weatherEntity.setVisibility(1);
         weatherEntity.setWindSpeed(0.3);
 
-        WeatherResponse response = weatherResponse.mapEntityToResponse(weatherEntity);
+        WeatherResponse response = weatherMapper.mapEntityToResponse(weatherEntity);
 
         assertEquals(weatherEntity.getId(), response.getId());
         assertEquals(weatherEntity.getWeatherCondition(), String.valueOf(

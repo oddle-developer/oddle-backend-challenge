@@ -1,13 +1,15 @@
-create table oddle.city
+create table city
 (
-    id        varchar(255) not null
+    id          varchar(255) not null
         primary key,
-    latitude  bigint       not null,
-    longitude bigint       not null,
-    name      varchar(255) null
+    latitude    bigint       not null,
+    longitude   bigint       not null,
+    name        varchar(255) null,
+    create_time datetime     null,
+    update_time datetime     null
 );
 
-create table oddle.weather
+create table weather
 (
     id                    varchar(255)   not null
         primary key,
@@ -20,7 +22,9 @@ create table oddle.weather
     weather_condition     varchar(255)   null,
     wind_speed            double         not null,
     city_id               varchar(255)   null,
+    create_time           datetime       null,
+    update_time           datetime       null,
     constraint FK_City
-        foreign key (city_id) references oddle.city (id)
+        foreign key (city_id) references city (id)
 );
 

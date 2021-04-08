@@ -8,9 +8,12 @@ import org.mapstruct.factory.Mappers;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Mapper
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface WeatherMapper {
 
+    /**
+     * This Instance is only used for Unit Testing and not for bean provider
+     */
     WeatherMapper INSTANCE = Mappers.getMapper(WeatherMapper.class);
 
     @Mappings({
