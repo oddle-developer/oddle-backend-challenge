@@ -18,8 +18,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'mysql:mysql-connector-java'
     testImplementation group: 'com.h2database', name: 'h2', version: '1.4.197'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
-
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+        annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 }
 
 test {

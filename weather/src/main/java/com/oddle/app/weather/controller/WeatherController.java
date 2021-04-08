@@ -1,5 +1,6 @@
 package com.oddle.app.weather.controller;
 
+import com.oddle.app.weather.data.WeatherResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class WeatherController {
     }
 
     @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getCurrentWeather(@RequestParam("city") String city) {
-        return new ResponseEntity<>(city, HttpStatus.OK);
+    public ResponseEntity<WeatherResponse> getCurrentWeather(@RequestParam("city") String city) {
+        return new ResponseEntity<>(new WeatherResponse(), HttpStatus.OK);
     }
 }

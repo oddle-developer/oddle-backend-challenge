@@ -49,8 +49,7 @@ class WeatherApplicationTests {
 					.andExpect(jsonPath("$.extend.temp_max").exists())
 					.andExpect(jsonPath("$.extend.humidity").exists())
 					.andExpect(jsonPath("$.visibility").exists())
-					.andExpect(jsonPath("$.wind_speed").exists())
-					.andExpect(jsonPath("$.retrieval_time").exists());
+					.andExpect(jsonPath("$.wind_speed").exists());
 		} catch (Exception exception) {
 			fail();
 		}
