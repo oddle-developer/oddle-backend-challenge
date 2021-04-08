@@ -2,18 +2,18 @@ package com.oddle.app.weather.repositories;
 
 import com.oddle.app.weather.model.Weather;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
 @Repository
-public interface WeatherRepository extends CrudRepository<Weather, String>,
+public interface WeatherRepository extends JpaRepository<Weather, String>,
         PagingAndSortingRepository<Weather, String> {
 
     /**
@@ -34,7 +34,7 @@ public interface WeatherRepository extends CrudRepository<Weather, String>,
                     "WHERE weather.city.name = :cityName"
     )
     List<Weather> findByCityInRangeDesc(@Param("cityName") String cityName,
-                                        @Param("startDate") LocalDateTime startDate,
-                                        @Param("endDate") LocalDateTime endDate,
+                                        @Param("startDate") Date startDate,
+                                        @Param("endDate") Date endDate,
                                         Pageable pageable);
 }

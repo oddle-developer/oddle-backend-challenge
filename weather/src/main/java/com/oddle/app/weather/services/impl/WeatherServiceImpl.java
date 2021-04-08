@@ -10,10 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
+import java.time.*;
+import java.util.*;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
@@ -31,13 +29,18 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     public WeatherResponse getCurrentWeather(String cityName) {
         LocalDate today = LocalDate.now();
+        Date startOfDay = Date.from(today.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        Date endOfDay = Date.from(today.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant());
         Pageable firstResult = PageRequest.of(0, 1);
         List<Weather> resultFromDB = weatherRepository.findByCityInRangeDesc(
                 cityName,
-                today.atStartOfDay(),
-                today.atTime(LocalTime.MAX),
+                startOfDay,
+                endOfDay,
                 firstResult
         );
+        if (resultFromDB.size() == 0) {
+            return null;
+        }
         return Optional
                 .ofNullable(resultFromDB.get(0))
                 .map(weatherMapper::mapEntityToResponse)
