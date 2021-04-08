@@ -1,6 +1,6 @@
 create table city
 (
-    id          varchar(255) not null
+    id          varchar(255) not null unique
         primary key,
     latitude    bigint       not null,
     longitude   bigint       not null,
@@ -11,7 +11,7 @@ create table city
 
 create table weather
 (
-    id                    varchar(255)   not null
+    id                    varchar(255)   not null unique
         primary key,
     condition_description varchar(255)   null,
     humidity              int            not null,
