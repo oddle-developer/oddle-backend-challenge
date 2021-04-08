@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.TimeZone;
 
 @RestController
 @RequestMapping("/api")
@@ -31,8 +32,8 @@ public class WeatherController {
     }
 
     @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<WeatherResponse> getCurrentWeather(@RequestParam("city") String cityName) {
-        WeatherResponse response = weatherService.getCurrentWeather(cityName);
+    public ResponseEntity<WeatherResponse> getCurrentWeather(@RequestParam("city") String cityName, TimeZone timeZone) {
+        WeatherResponse response = weatherService.getCurrentWeather(cityName, timeZone);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

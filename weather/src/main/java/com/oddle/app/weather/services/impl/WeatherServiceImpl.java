@@ -27,10 +27,11 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public WeatherResponse getCurrentWeather(String cityName) {
-        LocalDate today = LocalDate.now();
-        Date startOfDay = Date.from(today.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-        Date endOfDay = Date.from(today.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant());
+    public WeatherResponse getCurrentWeather(String cityName, TimeZone timeZone) {
+        ZonedDateTime todayAtZone = ZonedDateTime.of(LocalDateTime.now(), timeZone.toZoneId());
+        LocalDate todayAtUTC = todayAtZone.toInstant().atZone(ZoneId.of("UTC")).toLocalDate();
+        Date startOfDay = Date.from(todayAtUTC.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        Date endOfDay = Date.from(todayAtUTC.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant());
         Pageable firstResult = PageRequest.of(0, 1);
         List<Weather> resultFromDB = weatherRepository.findByCityInRangeDesc(
                 cityName,
