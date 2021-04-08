@@ -2,7 +2,6 @@ package com.oddle.app.weather.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.oddle.app.weather.model.Weather;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,8 +18,8 @@ import java.util.Map;
         WeatherResponse.JSON_WIND_SPEED,
 })
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class WeatherResponse extends Weather {
+@EqualsAndHashCode()
+public class WeatherResponse {
 
     public static final String JSON_ID = "id";
     public static final String JSON_WEATHER = "weather";

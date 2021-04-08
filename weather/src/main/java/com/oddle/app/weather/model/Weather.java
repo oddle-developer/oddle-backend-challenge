@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -18,16 +17,14 @@ public class Weather extends OddleEntity {
     private String conditionDescription;
 
     @Basic
-    @Column(precision = 19, scale = 4)
-    private BigDecimal tempAvg;
+    @Column
+    private double tempAvg;
 
     @Basic
-    @Column(precision = 19, scale = 4)
-    private BigDecimal tempMin;
+    private double tempMin;
 
     @Basic
-    @Column(precision = 19, scale = 4)
-    private BigDecimal tempMax;
+    private double tempMax;
 
     @Basic
     private int humidity;
@@ -38,6 +35,6 @@ public class Weather extends OddleEntity {
     @Basic
     private double windSpeed;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private City city;
 }

@@ -2,6 +2,7 @@ package com.oddle.app.weather.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,5 +21,7 @@ public class City extends OddleEntity {
     private long latitude;
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Weather> weathers;
 }

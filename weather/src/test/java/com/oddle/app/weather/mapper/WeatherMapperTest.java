@@ -39,9 +39,9 @@ public class WeatherMapperTest {
         weatherEntity.setId(UUID.randomUUID().toString());
         weatherEntity.setWeatherCondition("Cold");
         weatherEntity.setConditionDescription("Condition Description");
-        weatherEntity.setTempAvg(new BigDecimal("0.2"));
-        weatherEntity.setTempMin(new BigDecimal("0.2"));
-        weatherEntity.setTempMax(new BigDecimal("0.3"));
+        weatherEntity.setTempAvg(0.2);
+        weatherEntity.setTempMin(0.2);
+        weatherEntity.setTempMax(0.3);
         weatherEntity.setHumidity(1);
         weatherEntity.setVisibility(1);
         weatherEntity.setWindSpeed(0.3);
