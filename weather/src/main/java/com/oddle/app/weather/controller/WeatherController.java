@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.TimeZone;
+import java.time.LocalDate;
+import java.util.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/weather")
 public class WeatherController {
 
     private final WeatherService weatherService;
@@ -32,8 +31,26 @@ public class WeatherController {
     }
 
     @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<WeatherResponse> getCurrentWeather(@RequestParam("city") String cityName, TimeZone timeZone) {
+    public ResponseEntity<WeatherResponse> getCurrentWeatherFrom(@RequestParam("city") String cityName,
+                                                                 TimeZone timeZone) {
         WeatherResponse response = weatherService.getCurrentWeather(cityName, timeZone);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/historical", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<WeatherResponse>> getHistoricalWeatherFrom(@RequestParam("city") String cityName,
+                                                                          TimeZone timeZone) {
+        List<WeatherResponse> response = weatherService.getHistoricalWeather(cityName, timeZone);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/range", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<WeatherResponse>> getWeatherInRangeFrom(@RequestParam("city") String cityName,
+                                                                       @RequestParam("from") LocalDate fromDate,
+                                                                       @RequestParam("to") LocalDate toDate,
+                                                                       @RequestParam("page") int page,
+                                                                       TimeZone timeZone) {
+        List<WeatherResponse> response = weatherService.getWeatherInRange(cityName, fromDate, toDate, page, timeZone);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

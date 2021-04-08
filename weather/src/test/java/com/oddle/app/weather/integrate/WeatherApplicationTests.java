@@ -32,7 +32,7 @@ class WeatherApplicationTests {
 	public void shouldReturnPayLoadWhenSearch() {
 		try {
 			mockMvc.perform(MockMvcRequestBuilders
-					.get("/api/current")
+					.get("/api/weather/current")
 					.param("city", "hanoi")
 					.contentType(MediaType.TEXT_HTML))
 					.andExpect(status().isOk())
