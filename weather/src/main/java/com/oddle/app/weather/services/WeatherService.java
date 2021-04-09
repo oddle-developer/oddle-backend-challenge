@@ -3,6 +3,7 @@ package com.oddle.app.weather.services;
 import com.oddle.app.weather.data.AddRequest;
 import com.oddle.app.weather.data.WeatherResponse;
 import com.oddle.app.weather.exception.SaveOperationException;
+import com.oddle.app.weather.model.Weather;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,5 +23,5 @@ public interface WeatherService {
 
     List<WeatherResponse> getWeatherInRange(String cityName, LocalDate fromDate, LocalDate toDate, int page, TimeZone timeZone);
 
-    void addNewWeatherData(AddRequest addRequest) throws SaveOperationException;
+    Weather addNewWeatherData(AddRequest addRequest) throws SaveOperationException;
 }

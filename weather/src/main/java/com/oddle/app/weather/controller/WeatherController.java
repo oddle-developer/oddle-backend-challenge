@@ -3,6 +3,7 @@ package com.oddle.app.weather.controller;
 import com.oddle.app.weather.data.AddRequest;
 import com.oddle.app.weather.data.WeatherResponse;
 import com.oddle.app.weather.exception.SaveOperationException;
+import com.oddle.app.weather.model.Weather;
 import com.oddle.app.weather.services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,9 +58,9 @@ public class WeatherController {
     public ResponseEntity<Map<String, String>> addWeather(AddRequest addRequest) {
         Map<String, String> response = new HashMap<>();
         try {
-            weatherService.addNewWeatherData(addRequest);
+            Weather added = weatherService.addNewWeatherData(addRequest);
             response.put("message", "New Weather Data Added");
-            response.put("weather_id", "15645456");
+            response.put("weather_id", added.getId());
         } catch (SaveOperationException e) {
             response.put("error", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
