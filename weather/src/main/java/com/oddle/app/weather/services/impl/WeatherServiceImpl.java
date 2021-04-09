@@ -1,8 +1,12 @@
 package com.oddle.app.weather.services.impl;
 
+import com.oddle.app.weather.data.AddRequest;
 import com.oddle.app.weather.data.WeatherResponse;
 import com.oddle.app.weather.data.mapper.WeatherMapper;
+import com.oddle.app.weather.exception.SaveOperationException;
+import com.oddle.app.weather.model.City;
 import com.oddle.app.weather.model.Weather;
+import com.oddle.app.weather.repositories.CityRepository;
 import com.oddle.app.weather.repositories.WeatherRepository;
 import com.oddle.app.weather.services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +27,13 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherMapper weatherMapper;
 
+    private final CityRepository cityRepository;
+
     @Autowired
-    public WeatherServiceImpl(WeatherRepository weatherRepository, WeatherMapper weatherMapper) {
+    public WeatherServiceImpl(WeatherRepository weatherRepository, WeatherMapper weatherMapper, CityRepository cityRepository) {
         this.weatherRepository = weatherRepository;
         this.weatherMapper = weatherMapper;
+        this.cityRepository = cityRepository;
     }
 
     @Override
@@ -58,6 +65,15 @@ public class WeatherServiceImpl implements WeatherService {
         ).stream()
                 .map(weatherMapper::mapEntityToResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void addNewWeatherData(AddRequest addRequest) throws SaveOperationException {
+        Weather weather = weatherMapper.mapRequestToEntity(addRequest);
+        City city = weather.getCity();
+        City inDbCity = cityRepository.findByName(city.getName()).orElseThrow(SaveOperationException::new);
+        weather.setCity(inDbCity);
+        weatherRepository.save(weather);
     }
 
     private List<WeatherResponse> getWeatherResponse(String cityName, TimeZone timeZone, Pageable firstResult) {

@@ -1,15 +1,14 @@
 package com.oddle.app.weather.controller;
 
+import com.oddle.app.weather.data.AddRequest;
 import com.oddle.app.weather.data.WeatherResponse;
+import com.oddle.app.weather.exception.SaveOperationException;
 import com.oddle.app.weather.services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -52,5 +51,19 @@ public class WeatherController {
                                                                        TimeZone timeZone) {
         List<WeatherResponse> response = weatherService.getWeatherInRange(cityName, fromDate, toDate, page, timeZone);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, String>> addWeather(AddRequest addRequest) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            weatherService.addNewWeatherData(addRequest);
+            response.put("message", "New Weather Data Added");
+            response.put("weather_id", "15645456");
+        } catch (SaveOperationException e) {
+            response.put("error", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

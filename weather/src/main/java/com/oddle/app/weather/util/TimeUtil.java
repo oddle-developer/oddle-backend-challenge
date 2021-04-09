@@ -14,6 +14,10 @@ public class TimeUtil {
         return todayAtZone.toInstant().atZone(ZoneId.of("UTC")).toLocalDate();
     }
 
+    public static LocalDateTime getCurrentUTCTime() {
+        return LocalDateTime.now(ZoneOffset.UTC);
+    }
+
     public static Date getStartTimeOfDay(LocalDate localDate) {
         return Date.from(
                 localDate
