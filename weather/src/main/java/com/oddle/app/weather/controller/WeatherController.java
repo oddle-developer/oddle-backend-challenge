@@ -58,9 +58,9 @@ public class WeatherController {
     public ResponseEntity<Map<String, String>> addWeather(AddRequest addRequest) {
         Map<String, String> response = new HashMap<>();
         try {
-            Weather added = weatherService.addNewWeatherData(addRequest);
+            String addedId = weatherService.addNewWeatherData(addRequest);
             response.put("message", "New Weather Data Added");
-            response.put("weather_id", added.getId());
+            response.put("weather_id", addedId);
         } catch (SaveOperationException e) {
             response.put("error", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);

@@ -23,5 +23,5 @@ public interface WeatherService {
 
     List<WeatherResponse> getWeatherInRange(String cityName, LocalDate fromDate, LocalDate toDate, int page, TimeZone timeZone);
 
-    Weather addNewWeatherData(AddRequest addRequest) throws SaveOperationException;
+    String addNewWeatherData(AddRequest addRequest) throws SaveOperationException;
 }

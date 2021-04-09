@@ -68,12 +68,12 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public Weather addNewWeatherData(AddRequest addRequest) throws SaveOperationException {
+    public String addNewWeatherData(AddRequest addRequest) throws SaveOperationException {
         Weather weather = weatherMapper.mapRequestToEntity(addRequest);
         City city = weather.getCity();
         City inDbCity = cityRepository.findByName(city.getName()).orElseThrow(SaveOperationException::new);
         weather.setCity(inDbCity);
-        return weatherRepository.save(weather);
+        return weatherRepository.save(weather).getId();
     }
 
     private List<WeatherResponse> getWeatherResponse(String cityName, TimeZone timeZone, Pageable firstResult) {
