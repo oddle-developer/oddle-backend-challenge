@@ -1,15 +1,14 @@
 package com.oddle.app.weather.data.json.openweather.deserilizer;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.oddle.app.weather.model.MainModel;
+import com.oddle.app.weather.data.json.openweather.node.MainNode;
 
 import java.io.IOException;
 
-public class MainDeserializer extends StdDeserializer<MainModel> {
+public class MainDeserializer extends StdDeserializer<MainNode> {
 
     static final String JSON_TEMP_PROPERTY = "temp";
     static final String JSON_TEMP_MIN_PROPERTY = "temp_min";
@@ -30,7 +29,7 @@ public class MainDeserializer extends StdDeserializer<MainModel> {
     }
 
     @Override
-    public MainModel deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
+    public MainNode deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
         JsonNode jsonNode = p.getCodec().readTree(p);
         if (jsonNode.hasNonNull(JSON_TEMP_PROPERTY)) {
             temp = jsonNode.get(JSON_TEMP_PROPERTY).asDouble();
@@ -47,7 +46,7 @@ public class MainDeserializer extends StdDeserializer<MainModel> {
         if (jsonNode.hasNonNull(JSON_HUMIDITY_PROPERTY)) {
             humidity = jsonNode.get(JSON_HUMIDITY_PROPERTY).asInt();
         }
-        return new MainModel(
+        return new MainNode(
                 temp, temp_min, temp_max, visibility, humidity
         );
     }

@@ -1,9 +1,9 @@
 package com.oddle.app.weather.data.mapper;
 
-import com.oddle.app.weather.data.transfer.AddRequest;
-import com.oddle.app.weather.data.transfer.WeatherResponse;
-import com.oddle.app.weather.entity.City;
-import com.oddle.app.weather.entity.Weather;
+import com.oddle.app.weather.data.json.oddle.payload.AddRequest;
+import com.oddle.app.weather.data.json.oddle.payload.WeatherResponse;
+import com.oddle.app.weather.data.entity.City;
+import com.oddle.app.weather.data.entity.Weather;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 

@@ -1,30 +1,14 @@
 package com.oddle.app.weather.services;
 
-import com.oddle.app.weather.data.transfer.AddRequest;
-import com.oddle.app.weather.data.transfer.WeatherResponse;
-import com.oddle.app.weather.exception.SaveOperationException;
+import com.oddle.app.weather.data.json.oddle.payload.AddRequest;
+import com.oddle.app.weather.data.json.oddle.payload.WeatherResponse;
+import com.oddle.app.weather.exception.oddle.SaveOperationOddleFetchException;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.TimeZone;
 
-public interface WeatherService {
-
-    /**
-     * Get the current Weather from A city
-     * @param cityName The City Name
-     * @param timeZone The TimeZone
-     * @return Weather Data
-     */
-    WeatherResponse getCurrentWeather(String cityName, TimeZone timeZone);
-
-    /**
-     * Get the history weather data
-     * @param cityName The city name
-     * @param timeZone The Time Zone
-     * @return Weather Data
-     */
-    List<WeatherResponse> getHistoricalWeather(String cityName, TimeZone timeZone);
+public interface WeatherService extends WeatherFetchService {
 
     /**
      * Get the weather data from a city within a range
@@ -43,7 +27,7 @@ public interface WeatherService {
      *
      * @param addRequest The Add Request
      * @return The Weather Added id
-     * @throws SaveOperationException When Save with duplication
+     * @throws SaveOperationOddleFetchException When Save with duplication
      */
-    String addNewWeatherData(AddRequest addRequest) throws SaveOperationException;
+    String addNewWeatherData(AddRequest addRequest) throws SaveOperationOddleFetchException;
 }

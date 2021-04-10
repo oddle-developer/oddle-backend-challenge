@@ -1,7 +1,5 @@
-package com.oddle.app.weather.model;
+package com.oddle.app.weather.data.json.openweather.node;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.oddle.app.weather.data.json.openweather.deserilizer.CoordDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +9,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoordModel {
+public class CoordNode {
 
     private double lon;
 

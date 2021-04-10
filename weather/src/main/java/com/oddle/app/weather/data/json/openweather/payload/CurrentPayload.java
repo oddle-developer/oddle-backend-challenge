@@ -6,10 +6,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.oddle.app.weather.data.json.openweather.deserilizer.CoordDeserializer;
 import com.oddle.app.weather.data.json.openweather.deserilizer.MainDeserializer;
 import com.oddle.app.weather.data.json.openweather.deserilizer.WeatherDeserializer;
-import com.oddle.app.weather.model.CoordModel;
-import com.oddle.app.weather.model.MainModel;
-import com.oddle.app.weather.model.WeatherModel;
+import com.oddle.app.weather.data.json.openweather.deserilizer.WindDeserializer;
+import com.oddle.app.weather.data.json.openweather.node.CoordNode;
+import com.oddle.app.weather.data.json.openweather.node.MainNode;
+import com.oddle.app.weather.data.json.openweather.node.WeatherNode;
+import com.oddle.app.weather.data.json.openweather.node.WindNode;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,16 +23,23 @@ public class CurrentPayload {
     @JsonProperty("visibility")
     private int visibility;
 
+    @JsonProperty("name")
+    private String cityName;
+
     @JsonProperty("weather")
     @JsonDeserialize(using = WeatherDeserializer.class)
-    private WeatherModel weatherNode;
+    private List<WeatherNode> weatherNode = new ArrayList<>();
 
     @JsonProperty("coord")
     @JsonDeserialize(using = CoordDeserializer.class)
-    private CoordModel coordNode;
+    private CoordNode coordNode;
 
     @JsonProperty("main")
     @JsonDeserialize(using = MainDeserializer.class)
-    private MainModel mainNode;
+    private MainNode mainNode;
+
+    @JsonProperty("wind")
+    @JsonDeserialize(using = WindDeserializer.class)
+    private WindNode windNode;
 
 }
