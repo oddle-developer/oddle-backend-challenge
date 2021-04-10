@@ -2,8 +2,8 @@ create table city
 (
     id          varchar(36) not null unique
         primary key,
-    latitude    bigint       not null,
-    longitude   bigint       not null,
+    latitude    double        not null,
+    longitude   double       not null,
     name        varchar(255) null,
     create_time datetime     null default (UTC_TIMESTAMP()),
     update_time datetime     null default (UTC_TIMESTAMP())

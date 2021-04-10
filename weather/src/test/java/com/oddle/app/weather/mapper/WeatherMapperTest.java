@@ -1,8 +1,8 @@
 package com.oddle.app.weather.mapper;
 
-import com.oddle.app.weather.data.transfer.WeatherResponse;
+import com.oddle.app.weather.data.json.oddle.payload.WeatherResponse;
 import com.oddle.app.weather.data.mapper.WeatherMapper;
-import com.oddle.app.weather.entity.Weather;
+import com.oddle.app.weather.data.entity.Weather;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

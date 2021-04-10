@@ -1,9 +1,9 @@
 package com.oddle.app.weather.data.mapper;
 
-import com.oddle.app.weather.data.transfer.AddRequest;
-import com.oddle.app.weather.data.transfer.WeatherResponse;
-import com.oddle.app.weather.entity.City;
-import com.oddle.app.weather.entity.Weather;
+import com.oddle.app.weather.data.json.oddle.payload.AddRequest;
+import com.oddle.app.weather.data.json.oddle.payload.WeatherResponse;
+import com.oddle.app.weather.data.entity.City;
+import com.oddle.app.weather.data.entity.Weather;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -26,7 +26,8 @@ public interface WeatherMapper {
             @Mapping(source = "visibility", target = "visibility"),
             @Mapping(source = "windSpeed", target = "windSpeed"),
             @Mapping(target = "weather", ignore = true),
-            @Mapping(target = "extend", ignore = true)
+            @Mapping(target = "extend", ignore = true),
+            @Mapping(target = "lastUpdate", ignore = true)
     })
     WeatherResponse mapEntityToResponse(Weather weatherEntity);
 
@@ -68,13 +69,12 @@ public interface WeatherMapper {
         Map<String, String> cityMap = addRequest.getCity();
         City city = new City();
         city.setName(cityMap.get(AddRequest.JSON_CITY_NAME));
-        city.setLatitude(Long.parseLong(Optional
+        city.setLatitude(Double.parseDouble(Optional
                 .ofNullable(cityMap.get(AddRequest.JSON_CITY_LATITUDE))
                 .orElse("0")));
-        city.setLongitude(Long.parseLong(Optional
+        city.setLongitude(Double.parseDouble(Optional
                 .ofNullable(cityMap.get(AddRequest.JSON_CITY_LONGITUDE))
                 .orElse("0")));
-        weatherEntity.setCreateTime(Timestamp.from(Instant.now()));
-        weatherEntity.setUpdateTime(Timestamp.from(Instant.now()));
+        weatherEntity.setCity(city);
     }
 }

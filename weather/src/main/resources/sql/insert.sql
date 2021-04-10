@@ -1,7 +1,19 @@
-SET @city_id = UUID();
+DELIMITER $$
+CREATE PROCEDURE addCity(OUT cityId VARCHAR(36))
+BEGIN
+    DECLARE currentId VARCHAR(36);
+    SELECT id INTO currentId FROM city WHERE UPPER(name) = 'HANOI';
+    IF currentId is null THEN
+        SET cityId = UUID();
+        INSERT INTO oddle.city(id, latitude, longitude, name, create_time, update_time)
+        VALUES (cityId, 21.028511, 105.804817, 'Hanoi', UTC_TIMESTAMP(), UTC_TIMESTAMP());
+    ELSE
+        SET cityId = currentId;
+    END IF;
+END $$
+DELIMITER ;
 
-INSERT INTO oddle.city(id, latitude, longitude, name, create_time, update_time)
-VALUES (@city_id, 21.028511, 105.804817, 'hanoi', UTC_TIMESTAMP(), UTC_TIMESTAMP());
+CALL addCity(@city_id);
 
 INSERT INTO oddle.weather(id, condition_description, humidity, temp_avg, temp_max, temp_min, visibility,
                           weather_condition, wind_speed, city_id, create_time, update_time)

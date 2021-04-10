@@ -1,11 +1,11 @@
-package com.oddle.app.weather.data.transfer;
+package com.oddle.app.weather.data.json.oddle.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public abstract class WeatherDTO {
 
     @JsonProperty(value = WeatherResponse.JSON_VISIBILITY)

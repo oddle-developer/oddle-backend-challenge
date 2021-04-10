@@ -1,7 +1,9 @@
-package com.oddle.app.weather.data.transfer;
+package com.oddle.app.weather.data.json.oddle.payload;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.oddle.app.weather.data.json.oddle.deserializer.CityMapDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.util.StringUtils;
@@ -22,27 +24,7 @@ public class AddRequest extends WeatherAbstractRequest {
     public static final String JSON_CITY = "city";
 
     @JsonProperty(value = JSON_CITY)
+    @JsonDeserialize(using = CityMapDeserializer.class)
     private Map<String, String> city = new HashMap<>();
-
-    @JsonAnySetter
-    public void putCityName(String key, String value) {
-        putIfExist(key, value, JSON_CITY_NAME);
-    }
-
-    @JsonAnySetter
-    public void putLongitude(String key, String value) {
-        putIfExist(key, value, JSON_CITY_LONGITUDE);
-    }
-
-    @JsonAnySetter
-    public void putLatitude(String key, String value) {
-        putIfExist(key, value, JSON_CITY_LATITUDE);
-    }
-
-    private void putIfExist(String key, String value, String field) {
-        if (StringUtils.hasText(key) && key.equals(field)) {
-            city.put(key, value);
-        }
-    }
 
 }
