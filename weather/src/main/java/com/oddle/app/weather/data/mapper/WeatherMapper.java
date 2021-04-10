@@ -26,7 +26,8 @@ public interface WeatherMapper {
             @Mapping(source = "visibility", target = "visibility"),
             @Mapping(source = "windSpeed", target = "windSpeed"),
             @Mapping(target = "weather", ignore = true),
-            @Mapping(target = "extend", ignore = true)
+            @Mapping(target = "extend", ignore = true),
+            @Mapping(target = "lastUpdate", ignore = true)
     })
     WeatherResponse mapEntityToResponse(Weather weatherEntity);
 

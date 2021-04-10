@@ -11,6 +11,7 @@ import com.oddle.app.weather.exception.oddle.SaveOperationOddleFetchException;
 import com.oddle.app.weather.repositories.CityRepository;
 import com.oddle.app.weather.repositories.WeatherRepository;
 import com.oddle.app.weather.services.WeatherService;
+import com.oddle.app.weather.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,19 +45,30 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     public WeatherResponse getCurrentWeather(String cityName, TimeZone timeZone) throws FetchException {
         Pageable firstResult = PageRequest.of(0, 1);
-        List<WeatherResponse> response = getWeatherResponse(cityName, timeZone, firstResult);
+        List<Weather> response = getWeatherResponse(cityName, timeZone, firstResult);
         if (response.size() == 0) {
             return null;
         }
         return Optional
                 .ofNullable(response.get(0))
+                .map(weatherMapper::mapEntityToResponse)
                 .orElse(null);
     }
 
     @Override
     public List<WeatherResponse> getHistoricalWeather(String cityName, TimeZone timeZone) throws FetchException {
         Pageable limitRecord = PageRequest.of(0, 20);
-        return getWeatherResponse(cityName, timeZone, limitRecord);
+
+        return getWeatherResponse(cityName, timeZone, limitRecord)
+                .stream()
+                .map(entity -> {
+                    WeatherResponse response = weatherMapper.mapEntityToResponse(entity);
+                    response.setLastUpdate(TimeUtil.convertToCurrentTimeZone(
+                            entity.getUpdateTime(), timeZone
+                    ));
+                    return response;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -81,9 +93,9 @@ public class WeatherServiceImpl implements WeatherService {
         return weatherRepository.save(weather).getId();
     }
 
-    private List<WeatherResponse> getWeatherResponse(String cityName,
-                                                     TimeZone timeZone,
-                                                     Pageable firstResult) throws FetchException {
+    private List<Weather> getWeatherResponse(String cityName,
+                                             TimeZone timeZone,
+                                             Pageable firstResult) throws FetchException {
         LocalDate todayAtUTC = convertToUTCDate(LocalDate.now(), timeZone);
         Date startOfDay = getStartTimeOfDay(todayAtUTC);
         Date endOfDay = getEndTimeOfDay(todayAtUTC);
@@ -98,9 +110,7 @@ public class WeatherServiceImpl implements WeatherService {
         } catch (RuntimeException e) {
             throw new OddleFetchException(e);
         }
-        return resultFromDB.stream()
-                .map(weatherMapper::mapEntityToResponse)
-                .collect(Collectors.toList());
+        return resultFromDB;
 
     }
 

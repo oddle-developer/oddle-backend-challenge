@@ -1,10 +1,13 @@
 package com.oddle.app.weather.data.json.oddle.payload;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -16,6 +19,7 @@ import java.util.Map;
         WeatherResponse.JSON_EXTEND,
         WeatherResponse.JSON_VISIBILITY,
         WeatherResponse.JSON_WIND_SPEED,
+        WeatherResponse.JSON_LAST_UPDATE
 })
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -32,6 +36,7 @@ public class WeatherResponse extends WeatherDTO {
     public static final String JSON_EXTEND_HUMIDITY = "humidity";
     public static final String JSON_VISIBILITY = "visibility";
     public static final String JSON_WIND_SPEED = "wind_speed";
+    static final String JSON_LAST_UPDATE = "last_update";
 
     @JsonProperty(value = JSON_ID)
     private String id;
@@ -51,5 +56,10 @@ public class WeatherResponse extends WeatherDTO {
             JSON_EXTEND_HUMIDITY
     })
     private Map<String, Object> extend;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonProperty(JSON_LAST_UPDATE)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private LocalDateTime lastUpdate;
 
 }

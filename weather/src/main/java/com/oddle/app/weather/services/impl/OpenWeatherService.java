@@ -12,7 +12,7 @@ import com.oddle.app.weather.exception.openweather.OpenWeatherFetchException;
 import com.oddle.app.weather.repositories.CityRepository;
 import com.oddle.app.weather.repositories.WeatherRepository;
 import com.oddle.app.weather.services.WeatherFetchService;
-import com.oddle.app.weather.services.client.OpenWeatherClient;
+import com.oddle.app.weather.client.OpenWeatherClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

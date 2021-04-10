@@ -1,4 +1,4 @@
-package com.oddle.app.weather.services.client;
+package com.oddle.app.weather.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
