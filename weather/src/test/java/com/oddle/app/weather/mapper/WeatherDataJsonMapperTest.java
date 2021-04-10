@@ -1,6 +1,7 @@
-package com.oddle.app.weather.fetcher;
+package com.oddle.app.weather.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oddle.app.weather.data.json.openweather.payload.CurrentPayload;
 import com.oddle.app.weather.data.mapper.OpenWeatherMapper;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,20 +20,20 @@ public class WeatherDataJsonMapperTest {
 
     private static String responseBody;
 
-    private static OpenWeatherMapper openWeatherMapper;
+    private static ObjectMapper objectMapper;
 
     @BeforeAll
     static void init() throws IOException {
         File json = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "dataset/current.json");
         responseBody = new String(Files.readAllBytes(json.toPath()));
-        openWeatherMapper = new OpenWeatherMapper();
+        objectMapper = new ObjectMapper();
     }
 
     @Test
     @DisplayName("Should return the current data")
     public void givenCity_whenFetchCurrentFromSite_returnWeatherData() {
         try {
-            CurrentPayload payload = openWeatherMapper.mapCurrentWeatherData(responseBody);
+            CurrentPayload payload = objectMapper.readValue(responseBody, CurrentPayload.class);
             assertNotNull(payload);
             assertNotNull(payload.getCoordNode());
             assertNotNull(payload.getWeatherNode());
