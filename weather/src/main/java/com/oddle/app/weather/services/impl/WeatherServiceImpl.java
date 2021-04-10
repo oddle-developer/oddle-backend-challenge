@@ -110,13 +110,18 @@ public class WeatherServiceImpl implements WeatherService {
     private List<Weather> getRecentWeatherData(String cityName,
                                                TimeZone timeZone,
                                                Pageable limitRecord,
-                                               Function<LocalDateTime, LocalDateTime> refreshFunction) {
+                                               Function<LocalDateTime, LocalDateTime> refreshFunction) throws OddleFetchException {
         LocalDateTime requestTime = convertToUTCTime(LocalDateTime.now(), timeZone);
-        return weatherRepository.findByCityInRangeDesc(
-                cityName,
-                Timestamp.valueOf(refreshFunction.apply(requestTime)),
-                Timestamp.valueOf(requestTime),
-                limitRecord
-        );
+        try {
+            return weatherRepository.findByCityInRangeDesc(
+                    cityName,
+                    Timestamp.valueOf(refreshFunction.apply(requestTime)),
+                    Timestamp.valueOf(requestTime),
+                    limitRecord
+            );
+        } catch (Exception e) {
+            throw new OddleFetchException(e);
+        }
+
     }
 }
