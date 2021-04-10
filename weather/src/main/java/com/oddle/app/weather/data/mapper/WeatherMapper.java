@@ -1,9 +1,9 @@
 package com.oddle.app.weather.data.mapper;
 
-import com.oddle.app.weather.data.AddRequest;
-import com.oddle.app.weather.data.WeatherResponse;
-import com.oddle.app.weather.model.City;
-import com.oddle.app.weather.model.Weather;
+import com.oddle.app.weather.data.transfer.AddRequest;
+import com.oddle.app.weather.data.transfer.WeatherResponse;
+import com.oddle.app.weather.entity.City;
+import com.oddle.app.weather.entity.Weather;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -31,8 +31,8 @@ public interface WeatherMapper {
     WeatherResponse mapEntityToResponse(Weather weatherEntity);
 
     @Mappings({
-            @Mapping(source = "condition", target = "weatherCondition"),
-            @Mapping(source = "description", target = "conditionDescription"),
+            @Mapping(source = "condition", target = "condition"),
+            @Mapping(source = "description", target = "description"),
             @Mapping(source = "tempMin", target = "tempMin"),
             @Mapping(source = "tempMax", target = "tempMax"),
             @Mapping(source = "humidity", target = "humidity"),
@@ -50,8 +50,8 @@ public interface WeatherMapper {
     default void mapNestedProperty(Weather weatherEntity, @MappingTarget WeatherResponse weatherResponse) {
         final Map<String, Object> weatherJSON = new HashMap<>();
         final Map<String, Object> extendJSON = new HashMap<>();
-        weatherJSON.put(WeatherResponse.JSON_WEATHER_CONDITION, weatherEntity.getWeatherCondition());
-        weatherJSON.put(WeatherResponse.JSON_WEATHER_DESCRIPTION, weatherEntity.getConditionDescription());
+        weatherJSON.put(WeatherResponse.JSON_WEATHER_CONDITION, weatherEntity.getCondition());
+        weatherJSON.put(WeatherResponse.JSON_WEATHER_DESCRIPTION, weatherEntity.getDescription());
         weatherResponse.setWeather(weatherJSON);
         extendJSON.put(WeatherResponse.JSON_EXTEND_TEMP_AVG, weatherEntity.getTempAvg());
         extendJSON.put(WeatherResponse.JSON_EXTEND_TEMP_MIN, weatherEntity.getTempMin());

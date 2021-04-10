@@ -1,11 +1,11 @@
 package com.oddle.app.weather.services.impl;
 
-import com.oddle.app.weather.data.AddRequest;
-import com.oddle.app.weather.data.WeatherResponse;
+import com.oddle.app.weather.data.transfer.AddRequest;
+import com.oddle.app.weather.data.transfer.WeatherResponse;
 import com.oddle.app.weather.data.mapper.WeatherMapper;
 import com.oddle.app.weather.exception.SaveOperationException;
-import com.oddle.app.weather.model.City;
-import com.oddle.app.weather.model.Weather;
+import com.oddle.app.weather.entity.City;
+import com.oddle.app.weather.entity.Weather;
 import com.oddle.app.weather.repositories.CityRepository;
 import com.oddle.app.weather.repositories.WeatherRepository;
 import com.oddle.app.weather.services.WeatherService;

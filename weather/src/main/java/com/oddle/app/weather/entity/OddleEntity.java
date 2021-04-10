@@ -1,4 +1,4 @@
-package com.oddle.app.weather.model;
+package com.oddle.app.weather.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +11,7 @@ import java.util.UUID;
 @MappedSuperclass
 @EqualsAndHashCode
 public abstract class OddleEntity {
+
     @Id
     private String id;
 

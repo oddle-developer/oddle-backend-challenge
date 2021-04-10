@@ -1,4 +1,4 @@
-package com.oddle.app.weather.data;
+package com.oddle.app.weather.data.transfer;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

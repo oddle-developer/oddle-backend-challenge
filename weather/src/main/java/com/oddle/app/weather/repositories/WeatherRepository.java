@@ -1,6 +1,6 @@
 package com.oddle.app.weather.repositories;
 
-import com.oddle.app.weather.model.Weather;
+import com.oddle.app.weather.entity.Weather;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

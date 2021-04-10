@@ -1,6 +1,6 @@
 package com.oddle.app.weather.repositories;
 
-import com.oddle.app.weather.model.City;
+import com.oddle.app.weather.entity.City;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

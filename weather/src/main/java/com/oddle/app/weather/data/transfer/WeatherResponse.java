@@ -1,8 +1,7 @@
-package com.oddle.app.weather.data;
+package com.oddle.app.weather.data.transfer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.oddle.app.weather.model.Weather;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

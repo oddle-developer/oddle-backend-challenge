@@ -1,13 +1,12 @@
 package com.oddle.app.weather.mapper;
 
-import com.oddle.app.weather.data.WeatherResponse;
+import com.oddle.app.weather.data.transfer.WeatherResponse;
 import com.oddle.app.weather.data.mapper.WeatherMapper;
-import com.oddle.app.weather.model.Weather;
+import com.oddle.app.weather.entity.Weather;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,8 +36,8 @@ public class WeatherMapperTest {
     @Test
     public void givenEntity_whenMap_returnResponseDTO() {
         weatherEntity.setId(UUID.randomUUID().toString());
-        weatherEntity.setWeatherCondition("Cold");
-        weatherEntity.setConditionDescription("Condition Description");
+        weatherEntity.setCondition("Cold");
+        weatherEntity.setDescription("Condition Description");
         weatherEntity.setTempAvg(0.2);
         weatherEntity.setTempMin(0.2);
         weatherEntity.setTempMax(0.3);
@@ -49,9 +48,9 @@ public class WeatherMapperTest {
         WeatherResponse response = weatherMapper.mapEntityToResponse(weatherEntity);
 
         assertEquals(weatherEntity.getId(), response.getId());
-        assertEquals(weatherEntity.getWeatherCondition(), String.valueOf(
+        assertEquals(weatherEntity.getCondition(), String.valueOf(
                 response.getWeather().get(WeatherResponse.JSON_WEATHER_CONDITION)));
-        assertEquals(weatherEntity.getConditionDescription(), String.valueOf(
+        assertEquals(weatherEntity.getDescription(), String.valueOf(
                 response.getWeather().get(WeatherResponse.JSON_WEATHER_DESCRIPTION)));
         assertEquals(weatherEntity.getTempAvg(), response.getExtend()
                 .get(WeatherResponse.JSON_EXTEND_TEMP_AVG));

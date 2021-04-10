@@ -1,9 +1,8 @@
 package com.oddle.app.weather.controller;
 
-import com.oddle.app.weather.data.AddRequest;
-import com.oddle.app.weather.data.WeatherResponse;
+import com.oddle.app.weather.data.transfer.AddRequest;
+import com.oddle.app.weather.data.transfer.WeatherResponse;
 import com.oddle.app.weather.exception.SaveOperationException;
-import com.oddle.app.weather.model.Weather;
 import com.oddle.app.weather.services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,14 +36,14 @@ public class WeatherController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/historical", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/history", params = {"city"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<WeatherResponse>> getHistoricalWeatherFrom(@RequestParam("city") String cityName,
                                                                           TimeZone timeZone) {
         List<WeatherResponse> response = weatherService.getHistoricalWeather(cityName, timeZone);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/range", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/history", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<WeatherResponse>> getWeatherInRangeFrom(@RequestParam("city") String cityName,
                                                                        @RequestParam("from") LocalDate fromDate,
                                                                        @RequestParam("to") LocalDate toDate,

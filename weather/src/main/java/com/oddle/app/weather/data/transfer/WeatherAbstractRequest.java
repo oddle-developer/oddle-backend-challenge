@@ -1,4 +1,4 @@
-package com.oddle.app.weather.data;
+package com.oddle.app.weather.data.transfer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
