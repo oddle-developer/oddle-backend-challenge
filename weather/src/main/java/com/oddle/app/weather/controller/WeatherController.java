@@ -4,9 +4,12 @@ import com.oddle.app.weather.data.json.oddle.payload.AddRequest;
 import com.oddle.app.weather.data.json.oddle.payload.WeatherResponse;
 import com.oddle.app.weather.exception.FetchException;
 import com.oddle.app.weather.exception.oddle.SaveOperationOddleFetchException;
+import com.oddle.app.weather.services.WeatherFetchService;
 import com.oddle.app.weather.services.WeatherService;
 import com.oddle.app.weather.services.impl.OpenWeatherService;
+import com.oddle.app.weather.services.impl.WeatherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +24,11 @@ public class WeatherController {
 
     private final WeatherService weatherService;
 
-    private final OpenWeatherService openWeatherService;
+    private final WeatherFetchService openWeatherService;
 
     @Autowired
-    public WeatherController(WeatherService weatherService, OpenWeatherService openWeatherService) {
+    public WeatherController(WeatherService weatherService,
+                             @Qualifier("open-weather-service") WeatherFetchService openWeatherService) {
         this.weatherService = weatherService;
         this.openWeatherService = openWeatherService;
     }

@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public interface WeatherRepository extends JpaRepository<Weather, String>,
                     "WHERE UPPER(weather.city.name) = UPPER(:cityName)"
     )
     List<Weather> findByCityInRangeDesc(@Param("cityName") String cityName,
-                                        @Param("startDate") Date startDate,
-                                        @Param("endDate") Date endDate,
+                                        @Param("startDate") Timestamp startDate,
+                                        @Param("endDate") Timestamp endDate,
                                         Pageable pageable);
 }

@@ -19,8 +19,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.TimeZone;
 
-@Service
+@Service(value = OpenWeatherService.QUALIFIER_NAME)
 public class OpenWeatherService implements WeatherFetchService {
+
+    public static final String QUALIFIER_NAME = "open-weather-service";
 
     private final OpenWeatherClient openWeatherClient;
 
