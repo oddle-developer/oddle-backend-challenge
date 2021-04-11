@@ -69,13 +69,12 @@ public interface WeatherMapper {
         Map<String, String> cityMap = addRequest.getCity();
         City city = new City();
         city.setName(cityMap.get(AddRequest.JSON_CITY_NAME));
-        city.setLatitude(Long.parseLong(Optional
+        city.setLatitude(Double.parseDouble(Optional
                 .ofNullable(cityMap.get(AddRequest.JSON_CITY_LATITUDE))
                 .orElse("0")));
-        city.setLongitude(Long.parseLong(Optional
+        city.setLongitude(Double.parseDouble(Optional
                 .ofNullable(cityMap.get(AddRequest.JSON_CITY_LONGITUDE))
                 .orElse("0")));
-        weatherEntity.setCreateTime(Timestamp.from(Instant.now()));
-        weatherEntity.setUpdateTime(Timestamp.from(Instant.now()));
+        weatherEntity.setCity(city);
     }
 }

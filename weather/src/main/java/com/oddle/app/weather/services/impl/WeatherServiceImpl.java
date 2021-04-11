@@ -102,7 +102,12 @@ public class WeatherServiceImpl implements WeatherService {
     public String addNewWeatherData(AddRequest addRequest) throws SaveOperationOddleFetchException {
         Weather weather = weatherMapper.mapRequestToEntity(addRequest);
         City city = weather.getCity();
-        City inDbCity = cityRepository.findByNameIgnoreCase(city.getName()).orElseThrow(SaveOperationOddleFetchException::new);
+        if (city == null) {
+            throw new SaveOperationOddleFetchException();
+        }
+        City inDbCity = cityRepository
+                .findByNameIgnoreCase(city.getName())
+                .orElse(city);
         weather.setCity(inDbCity);
         return weatherRepository.save(weather).getId();
     }

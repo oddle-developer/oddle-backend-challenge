@@ -17,11 +17,11 @@ public class City extends OddleEntity {
 
     @Basic
     @Column(name = "longitude")
-    private long longitude;
+    private double longitude;
 
     @Basic
     @Column(name = "latitude")
-    private long latitude;
+    private double latitude;
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @ToString.Exclude

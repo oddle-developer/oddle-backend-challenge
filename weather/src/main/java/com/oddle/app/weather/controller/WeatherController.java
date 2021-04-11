@@ -84,7 +84,7 @@ public class WeatherController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, String>> addWeather(AddRequest addRequest) {
+    public ResponseEntity<Map<String, String>> addWeather(@RequestBody AddRequest addRequest) {
         Map<String, String> response = new HashMap<>();
         try {
             String addedId = weatherService.addNewWeatherData(addRequest);
