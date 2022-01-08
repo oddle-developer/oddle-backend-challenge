@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
-@Table(name="weather")
+@Table(name="weathers")
 @Data
 public class Weathers {
     @Id
@@ -20,8 +22,15 @@ public class Weathers {
 	private Long id;
 	@Column(name = "city", length = 200, nullable = false, unique = false)
 	private String city;
-    @Column(name = "timestamp", length = 200, nullable = false, unique = false)
+    @Column(name = "timestamp", nullable = false, unique = false)
 	private LocalDateTime timestamp;
-    @Column(name = "jsonData", length = 200, nullable = false, unique = false)
+    @Column(name = "json_data", columnDefinition="TEXT", nullable = false, unique = false)
     private String jsonData;
+    
+    @PrePersist
+    @PreUpdate
+    private void updateTimestamp() {
+        timestamp = LocalDateTime.now();
+    }
+
 }

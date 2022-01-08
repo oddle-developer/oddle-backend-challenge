@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNullFields;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
@@ -41,16 +41,28 @@ public class WeatherController {
     }
 
     @GetMapping(value="/weather")
-    public ResponseEntity<WeatherResponse> getWeatherByCity(@RequestParam("city") String city) {
+    public ResponseEntity<BaseResponse> getWeatherByCity(@RequestParam("city") String city) {
         
-        WeatherResponse res = service.getWeatherResponse(city);
+        WeatherResponse res;
+        try {
+            res = service.getWeatherResponse(city);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(WeatherResponse.builder().message("JSON structure of jsonData is unparseable.").build());
+        }
 
         return ResponseEntity.ok(res);
     }
     
     @PostMapping(value = "/weather")
-    public ResponseEntity<WeatherResponse> saveWeather(@RequestBody WeatherRequest request) {
-        WeatherResponse res = service.saveWeather(request);
+    public ResponseEntity<BaseResponse> saveWeather(@RequestBody WeatherRequest request) {
+        WeatherResponse res;
+        try {
+            res = service.saveWeather(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(WeatherResponse.builder().message("JSON structure of jsonData is unparseable.").build());
+        }
 
         return ResponseEntity.ok(res);
     }
@@ -61,14 +73,19 @@ public class WeatherController {
         LocalDateTime toDateTime = LocalDateTime.now();
         String statusMsg = service.isRequestValid(fromDt, toDt, fromDateTime, toDateTime); 
         if(statusMsg.equalsIgnoreCase("OK")){
-            List<WeatherResponse> list = service.getWeathersHistory(fromDateTime, toDateTime);
-            if(list.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of(WeatherResponse.builder().message("No history between dates.").build()));
-            } else {
-                return ResponseEntity.ok(list);
+            List<WeatherResponse> list;
+            try {
+                list = service.getWeathersHistory(fromDateTime, toDateTime);
+                if(list.isEmpty()){
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of(WeatherResponse.builder().message("No history between dates.").build()));
+                } else {
+                    return ResponseEntity.ok(list);
+                }
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(List.of(WeatherResponse.builder().message("JSON structure of jsonData is unparseable.").build()));
             }
         }else{
-            return ResponseEntity.badRequest().body(List.of(WeatherResponse.builder().message(statusMsg).build()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(List.of(WeatherResponse.builder().message(statusMsg).build()));
         }
     }
 

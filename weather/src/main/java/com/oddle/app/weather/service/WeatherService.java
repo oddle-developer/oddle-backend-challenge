@@ -1,5 +1,6 @@
 package com.oddle.app.weather.service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oddle.app.weather.dto.WeatherRequest;
 import com.oddle.app.weather.dto.WeatherResponse;
 import com.oddle.app.weather.entity.Weathers;
@@ -50,23 +54,24 @@ public class WeatherService {
             e.printStackTrace();
             return e.getResponseBodyAsString();
         } catch (Exception e) {
-            e.getCause();
+        	e.printStackTrace();
         } 
         return null;
     }
 
-    public WeatherResponse getWeatherResponse(String city) {
+    public WeatherResponse getWeatherResponse(String city) throws JsonProcessingException, IOException {
         String curWeather = getCurrentWeather(city);
+        JsonNode node = convertStringToJsonNode(curWeather);
         WeatherResponse res = null;
         if(curWeather != null) {
-            res = WeatherResponse.builder().city(city).timestamp(LocalDateTime.now()).jsonData(curWeather).build();
+            res = WeatherResponse.builder().city(city).timestamp(LocalDateTime.now()).jsonData(node).build();
         }else{
             //TODO:need to handle exception 
         }
         return res;
     }
 
-    public WeatherResponse saveWeather(WeatherRequest req) {
+    public WeatherResponse saveWeather(WeatherRequest req) throws JsonProcessingException, IOException {
         Weathers w = convertDtoToEntity(req);
         Weathers res = repo.save(w);
         return convertEntityToDto(res);
@@ -96,7 +101,7 @@ public class WeatherService {
     }
 
 
-    public List<WeatherResponse> getWeathersHistory(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+    public List<WeatherResponse> getWeathersHistory(LocalDateTime fromDateTime, LocalDateTime toDateTime) throws JsonProcessingException, IOException {
         List<Weathers> wList = repo.findByTimestampBetween(fromDateTime, toDateTime);
         List<WeatherResponse> wDtos = new ArrayList<>();
         for (Weathers w : wList) {
@@ -114,7 +119,7 @@ public class WeatherService {
         if(wOpt.isPresent()) {
             Weathers w = wOpt.get();
             w.setCity(dto.getCity());
-            w.setJsonData(dto.getJsonData());
+            w.setJsonData(dto.getJsonData().toString());
             repo.save(w);
         }
     }
@@ -124,8 +129,16 @@ public class WeatherService {
         return w;
     }
 
-    public WeatherResponse convertEntityToDto(Weathers en){
+    public WeatherResponse convertEntityToDto(Weathers en) throws JsonProcessingException, IOException{
         WeatherResponse wdto = modelMapper.map(en, WeatherResponse.class);
+        JsonNode jsonData = convertStringToJsonNode(en.getJsonData());
+        wdto.setJsonData(jsonData);
         return wdto;
+    }
+
+    public JsonNode convertStringToJsonNode(String jsonString) throws JsonProcessingException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(jsonString);
+        return actualObj;
     }
 }
