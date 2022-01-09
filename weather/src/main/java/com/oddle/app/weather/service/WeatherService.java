@@ -77,27 +77,22 @@ public class WeatherService {
         return convertEntityToDto(res);
     }
 
-    public String isRequestValid(String fromDt, String toDt, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+    public String isRequestValid(String fromDt, String toDt) {
         if(fromDt == null && toDt == null) {
-            return "OK"; 
+            return "default"; 
         } else if(fromDt == null) {
             return "fromDt cannot be empty when you set toDt";
         } else if(toDt == null) {
             return "toDt cannot be empty when you set fromDt";
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            try {
-                fromDateTime = LocalDateTime.parse(fromDt, formatter);
-                toDateTime = LocalDateTime.parse(toDt, formatter);
-                if(fromDateTime.isBefore(toDateTime)){
-                    return "OK";
-                } else {
-                    return "fromDt must be before toDt";
-                }
-            } catch (DateTimeParseException e) {
-                return "Date format must use yyyy-MM-dd";
-            }
+        	return "OK";
         }
+    }
+
+    public LocalDateTime parseStringDateToLocalDateTime(String strDate) throws DateTimeParseException{
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        strDate += " 00:00:00";
+        return LocalDateTime.parse(strDate, formatter);
     }
 
 

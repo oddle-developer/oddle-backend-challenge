@@ -20,20 +20,12 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@SuperBuilder
+@AllArgsConstructor
+@Builder
 @JsonInclude(Include.NON_NULL)
-public class WeatherResponse extends BaseResponse {
+public class WeatherResponse {
     private Long id;
     private String city;
     private LocalDateTime timestamp;
     private JsonNode jsonData;
-
-	public WeatherResponse(Long id, String city, LocalDateTime timestamp, JsonNode jsonData) {
-		super();
-		this.id = id;
-		this.city = city;
-		this.timestamp = timestamp;
-		this.jsonData = jsonData;
-	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import com.oddle.app.weather.dto.WeatherResponse;
 import com.oddle.app.weather.service.WeatherService;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RestController
@@ -42,57 +44,82 @@ public class WeatherController {
 
     @GetMapping(value="/weather")
     public ResponseEntity<BaseResponse> getWeatherByCity(@RequestParam("city") String city) {
-        
+        BaseResponse<WeatherResponse> baseRes = new BaseResponse<>();
         WeatherResponse res;
         try {
             res = service.getWeatherResponse(city);
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(WeatherResponse.builder().message("JSON structure of jsonData is unparseable.").build());
+            baseRes.buildFailResponse("JSON structure of jsonData is unparseable.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(baseRes);
         }
-
-        return ResponseEntity.ok(res);
+        baseRes.buildSuccessResponse(res);
+        return ResponseEntity.ok(baseRes);
     }
     
     @PostMapping(value = "/weather")
     public ResponseEntity<BaseResponse> saveWeather(@RequestBody WeatherRequest request) {
+    	BaseResponse<WeatherResponse> baseRes = new BaseResponse<>();
         WeatherResponse res;
         try {
             res = service.saveWeather(request);
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(WeatherResponse.builder().message("JSON structure of jsonData is unparseable.").build());
+            baseRes.buildFailResponse("JSON structure of jsonData is unparseable.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(baseRes);
         }
 
-        return ResponseEntity.ok(res);
+        baseRes.buildSuccessResponse(res);
+        return ResponseEntity.ok(baseRes);
     }
 
     @GetMapping(value = "/weathers")
-    public ResponseEntity<List<WeatherResponse>> getWeatherHistory(@RequestParam(value = "fromDt", required = false) String fromDt, @RequestParam(value = "toDt", required = false) String toDt) {
-        LocalDateTime fromDateTime = LocalDateTime.now().minusDays(daysThreshold);
+    public @ResponseBody ResponseEntity<BaseResponse> getWeatherHistory(@RequestParam(value = "fromDt", required = false) String fromDt, @RequestParam(value = "toDt", required = false) String toDt) {
+    	BaseResponse<List<WeatherResponse>> baseRes = new BaseResponse<>();
+    	LocalDateTime fromDateTime = LocalDateTime.now().minusDays(daysThreshold);
         LocalDateTime toDateTime = LocalDateTime.now();
-        String statusMsg = service.isRequestValid(fromDt, toDt, fromDateTime, toDateTime); 
+        String statusMsg = service.isRequestValid(fromDt, toDt); 
+        
         if(statusMsg.equalsIgnoreCase("OK")){
-            List<WeatherResponse> list;
-            try {
-                list = service.getWeathersHistory(fromDateTime, toDateTime);
-                if(list.isEmpty()){
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of(WeatherResponse.builder().message("No history between dates.").build()));
-                } else {
-                    return ResponseEntity.ok(list);
-                }
-            } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(List.of(WeatherResponse.builder().message("JSON structure of jsonData is unparseable.").build()));
+        	try {
+            	fromDateTime = service.parseStringDateToLocalDateTime(fromDt);
+            	toDateTime = service.parseStringDateToLocalDateTime(toDt);
+    		} catch (DateTimeParseException e) {
+    			e.printStackTrace();
+    			baseRes.buildFailResponse("Date format must be yyyy-MM-dd");
+    			return ResponseEntity.badRequest().body(baseRes);
+    		}
+            
+            if(fromDateTime.isAfter(toDateTime)) {
+            	baseRes.buildFailResponse("toDt must be after fromDt");
+            	return ResponseEntity.badRequest().body(baseRes);
             }
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(List.of(WeatherResponse.builder().message(statusMsg).build()));
+        }else if(!statusMsg.equalsIgnoreCase("default")){
+        	baseRes.buildFailResponse(statusMsg);
+            return ResponseEntity.badRequest().body(baseRes);
+        }
+        
+        List<WeatherResponse> list;
+        try {
+            list = service.getWeathersHistory(fromDateTime, toDateTime);
+            if(list.isEmpty()){
+            	baseRes.buildFailResponse("No history between dates.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(baseRes);
+            } else {
+            	baseRes.buildSuccessResponse(list);
+                return ResponseEntity.ok(baseRes);
+            }
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(baseRes);
         }
     }
 
     @DeleteMapping(value = "/weather/{id}")
     public ResponseEntity<BaseResponse> removeWeather(@PathVariable(value = "id", required = true) Long id) {
         if(id == null) {
-            return ResponseEntity.badRequest().body(BaseResponse.builder().message("id cannot be empty").build());
+        	BaseResponse<WeatherResponse> baseRes = new BaseResponse<>();
+        	baseRes.buildFailResponse("id cannot be empty");
+            return ResponseEntity.badRequest().body(baseRes);
         }
         service.deleteWeather(id);
         return ResponseEntity.noContent().build();

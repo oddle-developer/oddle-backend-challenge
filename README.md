@@ -26,7 +26,7 @@ You need to update the database config to point to your desired database first.
 
 **Run:**
 ```
-$ ./gradlew bootRun
+$ gradle bootRun
 ```
 
 ## User stories
