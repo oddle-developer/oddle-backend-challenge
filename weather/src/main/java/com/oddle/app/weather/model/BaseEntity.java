@@ -1,5 +1,7 @@
 package com.oddle.app.weather.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
@@ -10,9 +12,11 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @Column(nullable = false, updatable = false)
+    @JsonIgnore
     protected LocalDateTime createdDate;
 
     @Column(nullable = false)
+    @JsonIgnore
     protected LocalDateTime updatedDate;
 
     @PrePersist

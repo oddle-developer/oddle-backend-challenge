@@ -1,21 +1,23 @@
 package com.oddle.app.weather.controller;
 
-import com.oddle.app.weather.model.City;
+import com.oddle.app.weather.model.WeatherDataEntity;
 import com.oddle.app.weather.pojo.response.WeatherResponse;
-import com.oddle.app.weather.repository.CityDAO;
+import com.oddle.app.weather.repository.WeatherDataRepository;
 import com.oddle.app.weather.response.Status;
 import com.oddle.app.weather.response.StatusBuilder;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 public class WeatherController {
@@ -23,7 +25,7 @@ public class WeatherController {
     private Environment env;
 
     @Autowired
-    private CityDAO cityDAO;
+    private WeatherDataRepository weatherDataRepository;
 
     private RestTemplate restTemplate;
     private String apiKey;
@@ -48,14 +50,16 @@ public class WeatherController {
             WeatherResponse weatherData = restTemplate.getForObject(url, WeatherResponse.class);
             response.put("status", StatusBuilder.getStatus(Status.SUCCESS.name()));
             response.put("response", weatherData);
+
+//            map pojo object to entity
+            ModelMapper modelMapper = new ModelMapper();
+            WeatherDataEntity weatherDataEntity = modelMapper.map(weatherData, WeatherDataEntity.class);
+            System.out.println("aaa");
+            weatherDataRepository.save(weatherDataEntity);
         } catch (Exception e) {
             response.put("status", StatusBuilder.getStatus(Status.CITY_NOT_FOUND.name()));
         }
         return response;
     }
 
-    @PostMapping("/test")
-    public City test (@RequestBody City city) {
-        return cityDAO.save(city);
-    }
 }

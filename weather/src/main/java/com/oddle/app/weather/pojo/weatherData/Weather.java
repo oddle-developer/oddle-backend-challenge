@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Weather {
     private int id;
-    private String group;
+    private String main;
     private String description;
     private String icon;
 
@@ -16,14 +16,14 @@ public class Weather {
         this.id = id;
     }
 
-    @JsonProperty("group")
+    @JsonProperty("main")
     public String getGroup() {
-        return group;
+        return main;
     }
 
     @JsonProperty("main")
     public void setGroup(String group) {
-        this.group = group;
+        this.main = group;
     }
 
     public String getDescription() {
