@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class CityNotFoundException extends RuntimeException{
-    public CityNotFoundException(String message) {
-        super("City " + message);
+public class WeatherNotFoundException extends RuntimeException{
+    public WeatherNotFoundException(String message) {
+        super("Weather " + message);
     }
 }

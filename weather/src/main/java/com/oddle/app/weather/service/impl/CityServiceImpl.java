@@ -33,7 +33,7 @@ public class CityServiceImpl extends BaseService implements CityService {
     public CityDTO getCityById(int cityId) {
         City city = cityRepository.findById(cityId)
                 .orElseThrow(() ->
-                        new CityNotFoundException("id " + cityId + "not found"));
+                        new CityNotFoundException("id " + cityId + " not found"));
         return convertObject(city, CityDTO.class);
     }
 
@@ -48,7 +48,7 @@ public class CityServiceImpl extends BaseService implements CityService {
     public CityDTO updateCity(int cityId, CityDTO cityDto) {
         City city = cityRepository.findById(cityId)
                 .orElseThrow(() ->
-                        new CityNotFoundException("id " + cityId + "not found"));
+                        new CityNotFoundException("id " + cityId + " not found"));
         city.setCityName(cityDto.getCityName());
         city.setCountry(cityDto.getCountry());
         city.setLongitude(cityDto.getLongitude());
@@ -61,7 +61,7 @@ public class CityServiceImpl extends BaseService implements CityService {
     public void deleteCity(int cityId) {
         City city = cityRepository.findById(cityId)
                 .orElseThrow(() ->
-                        new CityNotFoundException("id " + cityId + "not found"));
+                        new CityNotFoundException("id " + cityId + " not found"));
         cityRepository.delete(city);
     }
 }

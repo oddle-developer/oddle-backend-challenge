@@ -33,9 +33,17 @@ public class GenericException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CityNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(CityNotFoundException ex, WebRequest request) {
+    public final ResponseEntity<Object> handleCityNotFoundException(CityNotFoundException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(WeatherNotFoundException.class)
+    public final ResponseEntity<Object> handleWeatherNotFoundException(WeatherNotFoundException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
 }
