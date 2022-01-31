@@ -1,13 +1,6 @@
-package com.oddle.app.weather.model;
+package com.oddle.app.weather.pojo.dto;
 
-import javax.persistence.*;
-import java.util.List;
-
-@Entity
-public class City extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "city_id")
+public class CityDTO {
     private int cityId;
 
     private String cityName;
@@ -17,17 +10,6 @@ public class City extends BaseEntity {
     private double longitude;
 
     private double latitude;
-
-    @Override
-    public String toString() {
-        return "City{" +
-                "cityId=" + cityId +
-                ", cityName='" + cityName + '\'' +
-                ", country='" + country + '\'' +
-                ", longitude=" + longitude +
-                ", latitude=" + latitude +
-                '}';
-    }
 
     public int getCityId() {
         return cityId;
