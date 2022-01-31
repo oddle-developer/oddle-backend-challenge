@@ -1,7 +1,9 @@
 package com.oddle.app.weather.pojo.weatherData;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Rain {
     private int volumeInLast1h;
     private int volumeInLast3h;

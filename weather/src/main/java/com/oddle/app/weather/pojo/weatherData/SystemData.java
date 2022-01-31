@@ -5,20 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SystemData {
-    private int id;
     private int type;
     private String message;
     private String countryCode;
     private long sunriseTime;
     private long sunsetTime;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getType() {
         return type;

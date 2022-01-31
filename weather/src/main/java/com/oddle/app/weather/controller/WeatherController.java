@@ -1,8 +1,6 @@
 package com.oddle.app.weather.controller;
 
-import com.oddle.app.weather.model.WeatherDataEntity;
 import com.oddle.app.weather.pojo.response.WeatherResponse;
-import com.oddle.app.weather.repository.WeatherDataRepository;
 import com.oddle.app.weather.response.Status;
 import com.oddle.app.weather.response.StatusBuilder;
 import org.modelmapper.ModelMapper;
@@ -23,9 +21,6 @@ import java.util.Map;
 public class WeatherController {
     @Autowired
     private Environment env;
-
-    @Autowired
-    private WeatherDataRepository weatherDataRepository;
 
     private RestTemplate restTemplate;
     private String apiKey;
@@ -50,12 +45,6 @@ public class WeatherController {
             WeatherResponse weatherData = restTemplate.getForObject(url, WeatherResponse.class);
             response.put("status", StatusBuilder.getStatus(Status.SUCCESS.name()));
             response.put("response", weatherData);
-
-//            map pojo object to entity
-            ModelMapper modelMapper = new ModelMapper();
-            WeatherDataEntity weatherDataEntity = modelMapper.map(weatherData, WeatherDataEntity.class);
-            System.out.println("aaa");
-            weatherDataRepository.save(weatherDataEntity);
         } catch (Exception e) {
             response.put("status", StatusBuilder.getStatus(Status.CITY_NOT_FOUND.name()));
         }
