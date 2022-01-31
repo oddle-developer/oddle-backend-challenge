@@ -27,7 +27,7 @@ public class WeatherData {
 
     private int visibility;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
