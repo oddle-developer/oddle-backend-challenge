@@ -6,7 +6,6 @@ import com.oddle.app.weather.pojo.dto.CityDTO;
 import com.oddle.app.weather.repository.CityRepository;
 import com.oddle.app.weather.service.BaseService;
 import com.oddle.app.weather.service.CityService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,6 @@ import java.util.stream.Collectors;
 public class CityServiceImpl extends BaseService implements CityService {
     @Autowired
     private CityRepository cityRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Override
     public List<CityDTO> getAllCity() {

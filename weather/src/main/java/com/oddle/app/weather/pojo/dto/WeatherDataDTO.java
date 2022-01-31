@@ -1,14 +1,8 @@
-package com.oddle.app.weather.model;
+package com.oddle.app.weather.pojo.dto;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "weather_data")
-public class WeatherData {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "weather_data_id")
+public class WeatherDataDTO {
     private int weatherDataId;
 
     private String base;
@@ -27,29 +21,9 @@ public class WeatherData {
 
     private int visibility;
 
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    private CityDTO city;
 
-    @ManyToMany
-    @JoinTable(name = "weather_data_mapping", joinColumns = @JoinColumn(name = "weather_data_id"), inverseJoinColumns = @JoinColumn(name = "weather_id"))
-    private List<Weather> weathers;
-
-    @Override
-    public String toString() {
-        return "WeatherData{" +
-                "weatherDataId=" + weatherDataId +
-                ", base='" + base + '\'' +
-                ", temp=" + temp +
-                ", pressure=" + pressure +
-                ", feelsLike=" + feelsLike +
-                ", humidity=" + humidity +
-                ", tempMin=" + tempMin +
-                ", tempMax=" + tempMax +
-                ", visibility=" + visibility +
-                ", city=" + city +
-                '}';
-    }
+    private List<WeatherDTO> weathers;
 
     public int getWeatherDataId() {
         return weatherDataId;
@@ -123,19 +97,36 @@ public class WeatherData {
         this.visibility = visibility;
     }
 
-    public City getCity() {
+    public CityDTO getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(CityDTO city) {
         this.city = city;
     }
 
-    public List<Weather> getWeathers() {
+    public List<WeatherDTO> getWeathers() {
         return weathers;
     }
 
-    public void setWeathers(List<Weather> weathers) {
+    public void setWeathers(List<WeatherDTO> weathers) {
         this.weathers = weathers;
+    }
+
+    @Override
+    public String toString() {
+        return "WeatherDataDTO{" +
+                "weatherDataId=" + weatherDataId +
+                ", base='" + base + '\'' +
+                ", temp=" + temp +
+                ", pressure=" + pressure +
+                ", feelsLike=" + feelsLike +
+                ", humidity=" + humidity +
+                ", tempMin=" + tempMin +
+                ", tempMax=" + tempMax +
+                ", visibility=" + visibility +
+                ", city=" + city +
+                ", weathers=" + weathers +
+                '}';
     }
 }
