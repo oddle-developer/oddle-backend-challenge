@@ -3,7 +3,6 @@ package com.oddle.app.weather.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oddle.app.weather.component.Utils;
 import com.oddle.app.weather.entity.WeatherEntity;
 import com.oddle.app.weather.repository.WeatherRepository;
 import com.oddle.app.weather.request.WeatherRequest;
@@ -30,9 +29,6 @@ public class WeatherService {
 
     @Value("${api.openweathermap.key}")
     String key;
-
-    @Autowired
-    Utils utils;
 
     @Autowired
     WeatherRepository weatherRepository;
