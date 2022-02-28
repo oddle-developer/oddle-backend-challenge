@@ -1,0 +1,924 @@
+{
+	"info": {
+		"_postman_id": "bb912265-98c2-4215-9a99-9656bed8fad1",
+		"name": "Oddle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Weather",
+			"item": [
+				{
+					"name": "Get Current Weather",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cityName\": \"Singapore\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/weather/current",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"weather",
+								"current"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Current Weather",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cityName\": \"Singapore\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseUrl}}/weather/current",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"weather",
+										"current"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Feb 2022 05:33:44 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": null,\n    \"data\": {\n        \"coord\": {\n            \"lon\": 103.8525,\n            \"lat\": 1.3524\n        },\n        \"weather\": [\n            {\n                \"id\": 802,\n                \"main\": \"Clouds\",\n                \"description\": \"scattered clouds\",\n                \"icon\": \"03d\"\n            }\n        ],\n        \"base\": \"stations\",\n        \"main\": {\n            \"temp\": 303.43,\n            \"feels_like\": 307.65,\n            \"temp_min\": 303.1,\n            \"temp_max\": 304.14,\n            \"pressure\": 1011,\n            \"humidity\": 65\n        },\n        \"visibility\": 10000,\n        \"wind\": {\n            \"speed\": 5.66,\n            \"deg\": 30\n        },\n        \"clouds\": {\n            \"all\": 40\n        },\n        \"dt\": 1646026370,\n        \"sys\": {\n            \"type\": 2,\n            \"id\": 265582,\n            \"message\": 0,\n            \"country\": \"SG\",\n            \"sunrise\": 1646003688,\n            \"sunset\": 1646047198\n        },\n        \"timezone\": 28800,\n        \"id\": 1882558,\n        \"name\": \"Thomson Park\",\n        \"cod\": 200\n    },\n    \"code\": 200\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All History",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateStart\":\"2022-02-27 21:20:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/weather/history/all",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"weather",
+								"history",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All History",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/weather/history/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"weather",
+										"history",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 14:10:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4028e4407f3b20bf017f3b5b524c0000\",\n        \"lattitude\": -6.210615138218265,\n        \"longitude\": 106.83431255201131,\n        \"cityCode\": \"JKT\",\n        \"cityName\": \"Jakarta\",\n        \"mainWeather\": \"Clouds\",\n        \"detailWeather\": \"overcast clouds\",\n        \"weatherIcon\": \"04n\",\n        \"dateAdded\": \"2022-02-27T13:25:14.000+00:00\",\n        \"dateModified\": \"2022-02-27T13:25:14.000+00:00\",\n        \"deleted\": false\n    },\n    {\n        \"id\": \"4028e4407f3b82c2017f3b8405e00000\",\n        \"lattitude\": -6.9191,\n        \"longitude\": 107.6226,\n        \"cityCode\": \"BDG\",\n        \"cityName\": \"Bandung\",\n        \"mainWeather\": \"Clouds\",\n        \"detailWeather\": \"overcast clouds\",\n        \"weatherIcon\": \"04n\",\n        \"dateAdded\": \"2022-02-27T14:09:42.000+00:00\",\n        \"dateModified\": \"2022-02-27T14:09:42.000+00:00\",\n        \"deleted\": false\n    },\n    {\n        \"id\": \"4028e4407f3b82c2017f3b851bf60001\",\n        \"lattitude\": -7.2579,\n        \"longitude\": 112.7459,\n        \"cityCode\": \"SBY\",\n        \"cityName\": \"Surabaya\",\n        \"mainWeather\": \"Clouds\",\n        \"detailWeather\": \"few clouds\",\n        \"weatherIcon\": \"02n\",\n        \"dateAdded\": \"2022-02-27T14:10:53.000+00:00\",\n        \"dateModified\": \"2022-02-27T14:10:53.000+00:00\",\n        \"deleted\": false\n    }\n]"
+						},
+						{
+							"name": "Get All History",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dateStart\":\"2022-02-27 21:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/weather/history/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"weather",
+										"history",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 14:19:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4028e4407f3b82c2017f3b851bf60001\",\n        \"lattitude\": -7.2579,\n        \"longitude\": 112.7459,\n        \"cityCode\": \"SBY\",\n        \"cityName\": \"Surabaya\",\n        \"mainWeather\": \"Clouds\",\n        \"detailWeather\": \"few clouds\",\n        \"weatherIcon\": \"02n\",\n        \"dateAdded\": \"2022-02-27T14:10:53.000+00:00\",\n        \"dateModified\": \"2022-02-27T14:10:53.000+00:00\",\n        \"deleted\": false\n    },\n    {\n        \"id\": \"4028e4407f3b82c2017f3b8405e00000\",\n        \"lattitude\": -6.9191,\n        \"longitude\": 107.6226,\n        \"cityCode\": \"BDG\",\n        \"cityName\": \"Bandung\",\n        \"mainWeather\": \"Clouds\",\n        \"detailWeather\": \"overcast clouds\",\n        \"weatherIcon\": \"04n\",\n        \"dateAdded\": \"2022-02-27T14:09:42.000+00:00\",\n        \"dateModified\": \"2022-02-27T14:09:42.000+00:00\",\n        \"deleted\": false\n    }\n]"
+						},
+						{
+							"name": "Get All History",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dateStart\":\"2022-02-27 21:00:00\",\r\n    \"dateEnd\":\"2022-02-27 21:10:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/weather/history/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"weather",
+										"history",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 14:20:06 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4028e4407f3b82c2017f3b8405e00000\",\n        \"lattitude\": -6.9191,\n        \"longitude\": 107.6226,\n        \"cityCode\": \"BDG\",\n        \"cityName\": \"Bandung\",\n        \"mainWeather\": \"Clouds\",\n        \"detailWeather\": \"overcast clouds\",\n        \"weatherIcon\": \"04n\",\n        \"dateAdded\": \"2022-02-27T14:09:42.000+00:00\",\n        \"dateModified\": \"2022-02-27T14:09:42.000+00:00\",\n        \"deleted\": false\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Add Weather History",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"cityCode\":\"SBY\",\r\n        \"cityName\":\"Surabaya\",\r\n        \"lattitude\": -7.2579,\r\n        \"longitude\": 112.7459,\r\n        \"mainWeather\":\"Clouds\",\r\n        \"detailWeather\":\"few clouds\",\r\n        \"weatherIcon\":\"02n\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/weather/history/add",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"weather",
+								"history",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Weather History",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"cityCode\":\"JKT\",\r\n        \"cityName\":\"Jakarta\",\r\n        \"lattitude\": -6.210615138218265,\r\n        \"longitude\": 106.83431255201131,\r\n        \"mainWeather\":\"Clouds\",\r\n        \"detailWeather\":\"overcast clouds\",\r\n        \"weatherIcon\":\"04n\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/weather/history/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"weather",
+										"history",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 13:25:14 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4028e4407f3b20bf017f3b5b524c0000\",\n        \"lattitude\": -6.210615138218265,\n        \"longitude\": 106.83431255201131,\n        \"cityCode\": \"JKT\",\n        \"cityName\": \"Jakarta\",\n        \"mainWeather\": \"Clouds\",\n        \"detailWeather\": \"overcast clouds\",\n        \"weatherIcon\": \"04n\",\n        \"dateAdded\": \"2022-02-27T13:25:14.948+00:00\",\n        \"dateModified\": \"2022-02-27T13:25:14.948+00:00\",\n        \"deleted\": false\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Update Weather History",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"4028e4407f3b82c2017f3b851bf60001\",\r\n    \"cityCode\": \"SBY\",\r\n    \"cityName\": \"Surabaya\",\r\n    \"mainWeather\": \"Clouds\",\r\n    \"detailWeather\": \"broken clouds\",\r\n    \"weatherIcon\": \"04n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/weather/history/update",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"weather",
+								"history",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Weather History",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"4028e4407f3b82c2017f3b851bf60001\",\r\n    \"cityCode\": \"SBY\",\r\n    \"cityName\": \"Surabaya\",\r\n    \"mainWeather\": \"Clouds\",\r\n    \"detailWeather\": \"broken clouds\",\r\n    \"weatherIcon\": \"04n\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/weather/history/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"weather",
+										"history",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 14:22:50 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"4028e4407f3b82c2017f3b851bf60001\",\n    \"lattitude\": -7.2579,\n    \"longitude\": 112.7459,\n    \"cityCode\": \"SBY\",\n    \"cityName\": \"Surabaya\",\n    \"mainWeather\": \"Clouds\",\n    \"detailWeather\": \"broken clouds\",\n    \"weatherIcon\": \"04n\",\n    \"dateAdded\": \"2022-02-27T14:10:53.000+00:00\",\n    \"dateModified\": \"2022-02-27T14:22:50.352+00:00\",\n    \"deleted\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Weather History",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{baseUrl}}/weather/history/delete/4028e4407f3b82c2017f3b8405e00000",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"weather",
+								"history",
+								"delete",
+								"4028e4407f3b82c2017f3b8405e00000"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Weather History",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{baseUrl}}/weather/history/delete/4028e4407f3b82c2017f3b851bf60aas001",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"weather",
+										"history",
+										"delete",
+										"4028e4407f3b82c2017f3b851bf60aas001"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 16:08:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Data with ID 4028e4407f3b82c2017f3b851bf60aas001 Not found\",\n    \"data\": null,\n    \"code\": 400\n}"
+						},
+						{
+							"name": "Delete Weather History",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{baseUrl}}/weather/history/delete/4028e4407f3b82c2017f3b8405e00000",
+									"protocol": "http",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"weather",
+										"history",
+										"delete",
+										"4028e4407f3b82c2017f3b8405e00000"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Feb 2022 06:55:52 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": null,\n    \"data\": \"Success delete history data\",\n    \"code\": 200\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "City",
+			"item": [
+				{
+					"name": "Get All City",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{baseUrl}}/city/all",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"city",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All City",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/city/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"city",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 08:20:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"cityCode\": \"JKT\",\n        \"cityName\": \"Jakarta\",\n        \"lattitude\": -6.210615138449796,\n        \"longitude\": 106.84667304909266\n    },\n    {\n        \"id\": 2,\n        \"cityCode\": \"BDG\",\n        \"cityName\": \"Bandung\",\n        \"lattitude\": -6.919463254098359,\n        \"longitude\": 107.6163754048351\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Add City",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"cityCode\":\"SGP\",\r\n        \"cityName\":\"Singapore\",\r\n        \"lattitude\": 1.3524378613687702,\r\n        \"longitude\": 103.85247775769068\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/city/add",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"city",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add City",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"cityCode\":\"SBY\",\r\n        \"cityName\":\"Surabaya\",\r\n        \"lattitude\": -7.257926810260998,\r\n        \"longitude\": 112.74588510937296\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/city/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"city",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 08:27:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3,\n        \"cityCode\": \"SBY\",\n        \"cityName\": \"Surabaya\",\n        \"lattitude\": -7.257926810260998,\n        \"longitude\": 112.74588510937296\n    }\n]"
+						},
+						{
+							"name": "Add City",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"cityCode\":\"JKT\",\r\n        \"cityName\":\"Jakarta\",\r\n        \"lattitude\": -6.210615138218265,\r\n        \"longitude\": 106.83431255201131\r\n    },\r\n    {\r\n        \"cityCode\":\"BDG\",\r\n        \"cityName\":\"Bandung\",\r\n        \"lattitude\": -6.919122431828124,\r\n        \"longitude\": 107.62255521444817\r\n    },\r\n    {\r\n        \"cityCode\":\"SBY\",\r\n        \"cityName\":\"Surabaya\",\r\n        \"lattitude\": -7.257926810260998,\r\n        \"longitude\": 112.74588510937296\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/city/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"city",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 13:21:41 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"cityCode\": \"JKT\",\n        \"cityName\": \"Jakarta\",\n        \"lattitude\": -6.210615138218265,\n        \"longitude\": 106.83431255201131\n    },\n    {\n        \"id\": 2,\n        \"cityCode\": \"BDG\",\n        \"cityName\": \"Bandung\",\n        \"lattitude\": -6.919122431828124,\n        \"longitude\": 107.62255521444817\n    },\n    {\n        \"id\": 3,\n        \"cityCode\": \"SBY\",\n        \"cityName\": \"Surabaya\",\n        \"lattitude\": -7.257926810260998,\n        \"longitude\": 112.74588510937296\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Update City",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":3,\r\n    \"cityName\": \"Surabaya Go\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/city/update",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"city",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update City",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":3,\r\n    \"cityName\": \"Surabaya Go\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/city/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"city",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Feb 2022 08:56:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"cityCode\": \"SBY\",\n    \"cityName\": \"Surabaya Go\",\n    \"lattitude\": -7.257926810260998,\n    \"longitude\": 112.74588510937296\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete City",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{baseUrl}}/city/delete/Mw",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"city",
+								"delete",
+								"Mw"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
