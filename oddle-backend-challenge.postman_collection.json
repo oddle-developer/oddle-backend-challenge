@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "f51d270a-046d-40d2-8022-7fdf510cd9f4",
+		"name": "oddle-backend-challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Current Weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather?city=london",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "london"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Weather Record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"city\": \"london\",\r\n    \"jsonData\": {\r\n        \"coord\": {\r\n            \"lon\": -0.1257,\r\n            \"lat\": 51.5085\r\n        },\r\n        \"weather\": [\r\n            {\r\n                \"id\": 800,\r\n                \"main\": \"Clear\",\r\n                \"description\": \"clear sky\",\r\n                \"icon\": \"01n\"\r\n            }\r\n        ],\r\n        \"base\": \"stations\",\r\n        \"main\": {\r\n            \"temp\": 276.56,\r\n            \"feels_like\": 271.54,\r\n            \"temp_min\": 275.3,\r\n            \"temp_max\": 277.74,\r\n            \"pressure\": 1000,\r\n            \"humidity\": 85\r\n        },\r\n        \"visibility\": 10000,\r\n        \"wind\": {\r\n            \"speed\": 7.2,\r\n            \"deg\": 250\r\n        },\r\n        \"clouds\": {\r\n            \"all\": 9\r\n        },\r\n        \"dt\": 1641700648,\r\n        \"sys\": {\r\n            \"type\": 2,\r\n            \"id\": 2019646,\r\n            \"country\": \"GB\",\r\n            \"sunrise\": 1641715415,\r\n            \"sunset\": 1641744666\r\n        },\r\n        \"timezone\": 0,\r\n        \"id\": 2643743,\r\n        \"name\": \"London\",\r\n        \"cod\": 200\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/weather",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Search History",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weathers?fromDt=2022-01-07&toDt=2022-01-06",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weathers"
+					],
+					"query": [
+						{
+							"key": "fromDt",
+							"value": "2022-01-07"
+						},
+						{
+							"key": "toDt",
+							"value": "2022-01-06"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Weather Record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Weather Records",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"city\": \"SINGAPORE\",\r\n    \"jsonData\": {\r\n        \"coord\": {\r\n            \"lon\": 103.8501,\r\n            \"lat\": 1.2897\r\n        },\r\n        \"weather\": [\r\n            {\r\n                \"id\": 803,\r\n                \"main\": \"Clouds\",\r\n                \"description\": \"broken clouds\",\r\n                \"icon\": \"04n\"\r\n            }\r\n        ],\r\n        \"base\": \"stations\",\r\n        \"main\": {\r\n            \"temp\": 299.7,\r\n            \"feels_like\": 299.7,\r\n            \"temp_min\": 298.76,\r\n            \"temp_max\": 300.17,\r\n            \"pressure\": 1011,\r\n            \"humidity\": 85\r\n        },\r\n        \"visibility\": 10000,\r\n        \"wind\": {\r\n            \"speed\": 4.63,\r\n            \"deg\": 40\r\n        },\r\n        \"clouds\": {\r\n            \"all\": 75\r\n        },\r\n        \"dt\": 1641659431,\r\n        \"sys\": {\r\n            \"type\": 1,\r\n            \"id\": 9470,\r\n            \"country\": \"SG\",\r\n            \"sunrise\": 1641683390,\r\n            \"sunset\": 1641726768\r\n        },\r\n        \"timezone\": 28800,\r\n        \"id\": 1880252,\r\n        \"name\": \"Singapore\",\r\n        \"cod\": 200\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/weather/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
