@@ -21,6 +21,6 @@ public class OpenWeatherGatewayAdapter {
 		        .queryParam("q", city)
 		        .queryParam("appid", openWeatherConfig.getKey());
 		
-		return restTemplate.getForEntity(builder.toUriString(), OWCurrentWeatherResponse.class).getBody();
+		return restTemplate.getForEntity(builder.build().toUri(), OWCurrentWeatherResponse.class).getBody();
 	}
 }
