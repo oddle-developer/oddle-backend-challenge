@@ -2,7 +2,12 @@ package com.oddle.app.weather.model.internalmapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.oddle.app.weather.model.externalmapper.EWeatherCondition;
+import com.oddle.app.weather.model.externalmapper.EWeatherSummary;
+import com.oddle.app.weather.util.DateUtil;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,6 +62,52 @@ public class IWeatherSummary {
 
     public IWeatherSummary() {
 
+    }
+
+    public IWeatherSummary(EWeatherSummary weatherSummary) {
+        // START: convert to internal weather object design
+        City ct = new City();
+        ct.setId(weatherSummary.getId());
+        ct.setName(weatherSummary.getName());
+        ct.setCountry(weatherSummary.getSys().getCountry());
+        ct.setLongitude(weatherSummary.getCoord().getLon());
+        ct.setLatitude(weatherSummary.getCoord().getLat());
+
+        this.setCity(ct);
+        this.setDate(DateUtil.convertEpochToDate(weatherSummary.getDt()));
+
+        List<IWeatherCondition> conditions = new ArrayList<IWeatherCondition>();
+        for (EWeatherCondition wthr : weatherSummary.getWeather()) {
+            IWeatherCondition wc = new IWeatherCondition();
+            wc.setCode(wthr.getId());
+            wc.setMain(wthr.getMain());
+            wc.setDescription(wthr.getDescription());
+
+            conditions.add(wc);
+        }
+
+        this.setConditions(conditions);
+
+        IWeatherMain wm = new IWeatherMain();
+        wm.setTemperature(weatherSummary.getMain().getTemp());
+        wm.setFeelsLike(weatherSummary.getMain().getFeels_like());
+        wm.setTempMin(weatherSummary.getMain().getTemp_min());
+        wm.setTempMax(weatherSummary.getMain().getTemp_max());
+        wm.setPressure(weatherSummary.getMain().getPressure());
+        wm.setHumidity(weatherSummary.getMain().getHumidity());
+
+        this.setMain(wm);
+        this.setVisibility(weatherSummary.getVisibility());
+
+        IWeatherWind ww = new IWeatherWind();
+        ww.setSpeed(weatherSummary.getWind().getSpeed());
+        ww.setDirection(weatherSummary.getWind().getDeg());
+
+        this.setWind(ww);
+        this.setSunrise(weatherSummary.getSys().getSunrise());
+        this.setSunset(weatherSummary.getSys().getSunset());
+        this.setTimezone(weatherSummary.getTimezone());
+        // END: convert to internal weather object design
     }
 
     public Long getId() {
