@@ -9,6 +9,7 @@ import com.oddle.app.weather.service.CityService;
 import com.oddle.app.weather.service.WeatherService;
 import com.oddle.app.weather.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -135,5 +139,32 @@ public class WeatherController {
     @DeleteMapping("/weather")
     public void deleteWeather(@RequestParam Long id) {
         weatherService.delete(id);
+    }
+
+    @GetMapping("/weathers")
+    public List<IWeatherSummary> getWeathers(
+            @RequestParam(required = false) String city,
+            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate,
+            @RequestParam(required = false, defaultValue = "0") int offset,
+            @RequestParam(required = false, defaultValue = "1000") int limit
+    ) {
+        System.out.println("getWeathers: " + city + ", " + startDate + ", " + endDate + ", " + offset + ", " + limit);
+
+        List<IWeatherSummary> bulkyError = new ArrayList<IWeatherSummary>();
+
+        if (endDate != null && endDate.before(startDate)) {
+            bulkyError.add(new IWeatherSummary(404, "End Date should be after Start Date"));
+        }
+
+        if (limit > 1000) {
+            bulkyError.add(new IWeatherSummary(404, "Maximum limit is 1000"));
+        }
+
+        if (!bulkyError.isEmpty()) {
+            return bulkyError;
+        }
+
+        return weatherService.getWeathers(city, startDate, endDate, offset, limit);
     }
 }
