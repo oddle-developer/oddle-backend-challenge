@@ -3,12 +3,17 @@ package com.oddle.app.weather.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oddle.app.weather.model.externalmapper.EWeatherSummary;
+import com.oddle.app.weather.model.internalmapper.City;
 import com.oddle.app.weather.model.internalmapper.IWeatherSummary;
+import com.oddle.app.weather.service.CityService;
 import com.oddle.app.weather.service.WeatherService;
+import com.oddle.app.weather.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +31,9 @@ public class WeatherController {
 
     @Autowired
     private WeatherService weatherService;
+
+    @Autowired
+    private CityService cityService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -68,6 +76,34 @@ public class WeatherController {
             EWeatherSummary ews = mapper.readValue(e.getResponseBodyAsString(), EWeatherSummary.class);
 
             return new IWeatherSummary(ews.getCod(), ews.getMessage());
+        }
+    }
+
+    @PostMapping("/weather")
+    public IWeatherSummary saveWeather(@RequestBody IWeatherSummary ws) {
+        try {
+            if (ws.getCity() != null && ws.getCity().getName() != null) {
+                String cityName = ws.getCity().getName();
+                String date = ws.getDate();
+
+                if (date != null && DateUtil.isDateValid(date)) {
+                    IWeatherSummary existingRecord = weatherService.getWeatherByCityAndDate(cityName, date);
+                    if (existingRecord != null) {
+                        return new IWeatherSummary(404, "Weather record has already exists");
+                    } else {
+                        City city = cityService.save(ws.getCity());
+                        ws.setCity(city);
+
+                        return weatherService.save(ws);
+                    }
+                } else {
+                    return new IWeatherSummary(404, "Please set the date in format dd-MM-yyyy");
+                }
+            } else {
+                return new IWeatherSummary(404, "City not found");
+            }
+        } catch (Exception e) {
+            return new IWeatherSummary(404, e.getMessage());
         }
     }
 }
