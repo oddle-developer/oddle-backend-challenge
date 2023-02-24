@@ -83,6 +83,8 @@ public class WeatherController {
             return weather;
 
         } catch (HttpClientErrorException e) {
+            System.out.println("ERROR getTodaysWeather: " + e);
+
             ObjectMapper mapper = new ObjectMapper();
             EWeatherSummary ews = mapper.readValue(e.getResponseBodyAsString(), EWeatherSummary.class);
 
@@ -115,6 +117,8 @@ public class WeatherController {
                 return new IWeatherSummary(404, "City not found");
             }
         } catch (Exception e) {
+            System.out.println("ERROR saveWeather: " + e);
+
             return new IWeatherSummary(404, e.getMessage());
         }
     }
@@ -138,6 +142,8 @@ public class WeatherController {
                 return weatherService.save(existingRecord);
             }
         } catch (Exception e) {
+            System.out.println("ERROR updateWeather: " + e);
+
             return new IWeatherSummary(404, e.getMessage());
         }
     }
