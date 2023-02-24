@@ -9,6 +9,9 @@ import com.oddle.app.weather.service.CityService;
 import com.oddle.app.weather.service.WeatherService;
 import com.oddle.app.weather.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -51,16 +54,17 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
+    @Cacheable(value = "weather", key = "{#city, #todayDate}")
     public IWeatherSummary getTodaysWeather(
             @RequestParam String city,
             @RequestParam(
                     defaultValue = "#{new java.text.SimpleDateFormat(\"dd-MM-yyyy\").format(new java.util.Date())}",
                     required = false
-            ) String tdyDt
+            ) String todayDate
     ) throws JsonProcessingException {
 
         // check if record already exists in the DB
-        IWeatherSummary todaysWeather = weatherService.getWeatherByCityAndDate(city, tdyDt);
+        IWeatherSummary todaysWeather = weatherService.getWeatherByCityAndDate(city, todayDate);
 
         // if already exists, return the object rather than calling OpenWeatherAPI
         if (todaysWeather != null) {
@@ -87,6 +91,7 @@ public class WeatherController {
     }
 
     @PostMapping("/weather")
+    @CachePut(value = "weather", unless = "#result.message != null", key = "{#ws.city.name, #ws.date}")
     public IWeatherSummary saveWeather(@RequestBody IWeatherSummary ws) {
         try {
             if (ws.getCity() != null && ws.getCity().getName() != null) {
@@ -115,6 +120,7 @@ public class WeatherController {
     }
 
     @PutMapping("/weather")
+    @CachePut(value = "weather", unless = "#result.message != null", key = "{#ws.city.name, #ws.date}")
     public IWeatherSummary updateWeather(@RequestParam Long id, @RequestBody IWeatherSummary ws) {
         try {
             Optional<IWeatherSummary> opt = weatherService.getWeatherById(id);
@@ -137,6 +143,7 @@ public class WeatherController {
     }
 
     @DeleteMapping("/weather")
+    @CacheEvict(value = "weather", allEntries = true)
     public void deleteWeather(@RequestParam Long id) {
         weatherService.delete(id);
     }
