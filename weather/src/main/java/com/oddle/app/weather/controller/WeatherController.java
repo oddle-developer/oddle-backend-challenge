@@ -13,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
@@ -101,6 +103,28 @@ public class WeatherController {
                 }
             } else {
                 return new IWeatherSummary(404, "City not found");
+            }
+        } catch (Exception e) {
+            return new IWeatherSummary(404, e.getMessage());
+        }
+    }
+
+    @PutMapping("/weather")
+    public IWeatherSummary updateWeather(@RequestParam Long id, @RequestBody IWeatherSummary ws) {
+        try {
+            Optional<IWeatherSummary> opt = weatherService.getWeatherById(id);
+            if (!opt.isPresent()) {
+                return new IWeatherSummary(404, "Record does not exists");
+            } else {
+                IWeatherSummary existingRecord = opt.get();
+
+                // only these four columns are update able
+                existingRecord.setVisibility(ws.getVisibility());
+                existingRecord.setSunrise(ws.getSunrise());
+                existingRecord.setSunset(ws.getSunset());
+                existingRecord.setTimezone(ws.getTimezone());
+
+                return weatherService.save(existingRecord);
             }
         } catch (Exception e) {
             return new IWeatherSummary(404, e.getMessage());
