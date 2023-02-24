@@ -11,6 +11,7 @@ import com.oddle.app.weather.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -129,5 +130,10 @@ public class WeatherController {
         } catch (Exception e) {
             return new IWeatherSummary(404, e.getMessage());
         }
+    }
+
+    @DeleteMapping("/weather")
+    public void deleteWeather(@RequestParam Long id) {
+        weatherService.delete(id);
     }
 }
