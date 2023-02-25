@@ -13,9 +13,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(value = Include.NON_NULL)
 public class City {
     @Id
-    @Column(name = "ID")
-    private Long id;
-
     @Column(name = "Name")
     private String name;
 
@@ -27,14 +24,6 @@ public class City {
 
     @Column(name = "Latitude")
     private BigDecimal latitude;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -70,7 +59,7 @@ public class City {
 
     @Override
     public String toString() {
-        return "City [id=" + id + ", name=" + name + ", country=" + country + ", longitude=" + longitude + ", latitude="
+        return "City [name=" + name + ", country=" + country + ", longitude=" + longitude + ", latitude="
                 + latitude + "]";
     }
 }

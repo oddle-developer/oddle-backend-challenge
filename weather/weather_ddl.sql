@@ -1,10 +1,9 @@
 CREATE TABLE `city` (
-  `ID` bigint NOT NULL,
   `Name` varchar(255) NOT NULL,
   `Country` varchar(255) DEFAULT NULL,
   `Latitude` decimal(19,2) DEFAULT NULL,
   `Longitude` decimal(19,2) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`Name`)
 );
 
 CREATE TABLE `weather` (
@@ -17,7 +16,7 @@ CREATE TABLE `weather` (
   `City` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_weather_city` (`City`),
-  CONSTRAINT `FK_weather_city` FOREIGN KEY (`City`) REFERENCES `city` (`ID`)
+  CONSTRAINT `FK_weather_city` FOREIGN KEY (`City`) REFERENCES `city` (`Name`)
 );
 
 CREATE TABLE `weather_condition` (

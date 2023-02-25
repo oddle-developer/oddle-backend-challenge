@@ -67,7 +67,6 @@ public class IWeatherSummary {
     public IWeatherSummary(EWeatherSummary weatherSummary) {
         // START: convert to internal weather object design
         City ct = new City();
-        ct.setId(weatherSummary.getId());
         ct.setName(weatherSummary.getName());
         ct.setCountry(weatherSummary.getSys().getCountry());
         ct.setLongitude(weatherSummary.getCoord().getLon());
