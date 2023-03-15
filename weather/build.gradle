@@ -12,11 +12,23 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('lombokVersion', '1.18.20')
+	set('swaggerVersion', '1.2.32')
+	set('jUnitVersion', '5.0.3')
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.apache.httpcomponents:httpclient:4.5'
+
+	compileOnly("org.projectlombok:lombok:${lombokVersion}")
+	annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
 	runtimeOnly 'mysql:mysql-connector-java'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
