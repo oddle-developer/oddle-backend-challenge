@@ -1,6 +1,6 @@
 package com.oddle.app.weather.enumeration;
 
-public enum WeatherCodeEnum {
+public enum WeatherCodeMainEnum {
 
     RAIN("Rain"),
     SNOW("Snow"),
@@ -21,7 +21,7 @@ public enum WeatherCodeEnum {
 
     private String name;
 
-    WeatherCodeEnum(String name) {
+    WeatherCodeMainEnum(String name) {
         this.name = name;
     }
 }

@@ -24,7 +24,7 @@ public class WeatherController {
     }
 
     @GetMapping("/current")
-    public Response getCurrentWeather(@RequestParam String cityName){
+    public Response getCurrentWeather(@RequestParam String cityName) {
         return Response.success(weatherService.getWeatherByCityName(cityName));
     }
 }

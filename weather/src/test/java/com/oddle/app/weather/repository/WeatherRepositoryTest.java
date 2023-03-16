@@ -1,5 +1,6 @@
 package com.oddle.app.weather.repository;
 
+import com.oddle.app.weather.enumeration.WeatherCodeMainEnum;
 import com.oddle.app.weather.model.entity.Weather;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class WeatherRepositoryTest {
 
     @Test
     void checkIfRepositoryIsNotNull() {
-        Weather result = weatherRepository.findWeatherByNameCustom("Ho Chi Minh City").get();
-        assertThat(result.getName()).isEqualTo("Ho Chi Minh City");
+        Weather result = weatherRepository.findByName("Ho Chi Minh City").get();
+        assertThat(result.getCodes().get(0).getWeatherCodeMain()).isEqualTo(WeatherCodeMainEnum.CLEAR.toString());
     }
 }
