@@ -1,7 +1,9 @@
 package com.oddle.app.weather.model.response;
 
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+@Data
 public class Response<T> {
 
     private int statusCode;

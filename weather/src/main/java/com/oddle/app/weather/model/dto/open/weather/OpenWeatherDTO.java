@@ -21,4 +21,22 @@ public class OpenWeatherDTO {
 
     private OpenWeatherWind wind;
 
+    private OpenWeatherRain rain;
+
+    private OpenWeatherSnow snow;
+
+    private OpenWeatherCloud cloud;
+
+    private Long dt;
+
+    private OpenWeatherSun sys;
+
+    private Integer timezone;
+
+    private Long id;
+
+    private String name;
+
+    private Integer cod;
+
 }

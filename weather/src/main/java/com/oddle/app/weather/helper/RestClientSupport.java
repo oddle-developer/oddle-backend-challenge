@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Log4j2
@@ -116,7 +117,9 @@ public class RestClientSupport {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        objectMapper.registerModule(new JavaTimeModule());
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addDeserializer(LocalDateTime.class, new MillisOrLocalDateTimeDeserializer());
+        objectMapper.registerModule(javaTimeModule);
         return objectMapper;
     }
 }
