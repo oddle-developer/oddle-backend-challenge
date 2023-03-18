@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveWeatherDataResponseDto {
-
-    private long id;
+public class UpdateWeatherRequestDto {
 
     private String cityName;
 
@@ -18,4 +16,5 @@ public class SaveWeatherDataResponseDto {
     private int temperature;
 
     private int humidity;
+
 }

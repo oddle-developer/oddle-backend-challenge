@@ -58,7 +58,7 @@ public class WeatherService {
 
         //This will map the request into API response
         MapperFacade mapperFacade = mapperFactory.getMapperFacade();
-        return mapperFacade.map(requestDto, SaveWeatherDataResponseDto.class);
+        return mapperFacade.map(weather, SaveWeatherDataResponseDto.class);
     }
 
     public List<Weather> getWeatherData(GetWeatherDataRequestDto requestDto){
@@ -87,6 +87,26 @@ public class WeatherService {
             throw new NotFoundException("Weather data is not exist.");
         }
 
+    }
+
+    public Weather updateWeatherById(long id, UpdateWeatherRequestDto requestDto) throws NotFoundException {
+
+        Optional<Weather> weather = weatherRepository.findById(id);
+
+        //This will check if the requested id is existed in the table
+        if(weather.isPresent()){
+
+            //First, it will map the request to the existed data
+            //Then it will save the updated data to the table
+            MapperFacade mapperFacade = mapperFactory.getMapperFacade();
+            mapperFacade.map(requestDto, weather.get());
+            weather.get().setUpdated_at(LocalDateTime.now());
+            weatherRepository.save(weather.get());
+        }else{
+            throw new NotFoundException("Weather data is not exist.");
+        }
+
+        return weather.get();
     }
 
 }

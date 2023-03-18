@@ -39,8 +39,14 @@ public class WeatherController {
     //This endpoint would delete the saved weather using the data's id
     @DeleteMapping("/weathers/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public void getWeatherByDateRange(@PathVariable("id") long id) throws NotFoundException {
+    public void deleteWeatherById(@PathVariable("id") long id) throws NotFoundException {
         weatherService.deleteWeatherById(id);
+    }
+
+    @PatchMapping("/weathers/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Weather updateWeatherById(@PathVariable("id") long id, @RequestBody UpdateWeatherRequestDto requestDto) throws NotFoundException {
+        return weatherService.updateWeatherById(id,requestDto);
     }
 
 }
