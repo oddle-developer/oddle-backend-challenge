@@ -63,6 +63,8 @@ public class WeatherService {
 
     public List<Weather> getWeatherData(GetWeatherDataRequestDto requestDto){
 
+        //This will check if the request are including the range date or not
+        //it there isn't any date, the API will find all the data that existed in the table
         try{
             if(requestDto.getCreatedAtStart() != null){
                 return weatherRepository.findAllBetweenDates(requestDto.getCreatedAtStart(), requestDto.getCreatedAtEnd());
@@ -72,6 +74,19 @@ public class WeatherService {
         }
 
         return weatherRepository.findAll();
+    }
+
+    public void deleteWeatherById(long id) throws NotFoundException {
+
+        Optional<Weather> weather = weatherRepository.findById(id);
+
+        //This will check if the requested id is existed in the table
+        if(weather.isPresent()){
+            weatherRepository.delete(weather.get());
+        }else{
+            throw new NotFoundException("Weather data is not exist.");
+        }
+
     }
 
 }
