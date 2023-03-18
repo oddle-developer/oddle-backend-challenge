@@ -74,3 +74,17 @@ https://openweathermap.org/current
 * Code. Commit and Push as many times as you want, only the **LAST Pull Request** will be graded
 * Create a Pull Request from your new branch in your private repo and invite us as reviewer
 * Add https://github.com/oddle-hire-java as collaborator for your repo and add `oddle-hire-java` as reviewer to your PR
+
+## Submission Notes
+
+* Hi there! if you want to run this project, pelease do some few steps below,
+  * run `gradle clean build`, then you could run the project and use Postman to create request to the running application.
+
+### Postman API Documentation Link
+* https://www.postman.com/orbital-module-cosmonaut-39473383/workspace/oddle-backend-challenge-radithya/collection/18611736-9369d258-4e0b-486b-b805-e78908676253?action=share&creator=18611736
+
+### Application Scaling Notes
+* For the open API connection it should be identified more detail exception, such as, timeout exception, 
+ or maybe failed connection exception, so that the API could identify and response more clearly to the user.
+* In addition, the exception identification in the controller advice should be improved, to provides more detail message
+ in the certain HTTP response code, so that could be useful to the user.
