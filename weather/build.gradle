@@ -24,6 +24,7 @@ dependencies {
 	implementation 'dev.akkinoc.spring.boot:orika-spring-boot-starter:2.4.4'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'com.h2database:h2'
 }
 
 test {
