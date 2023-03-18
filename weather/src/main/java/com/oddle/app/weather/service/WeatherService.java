@@ -66,7 +66,7 @@ public class WeatherService {
         //This will check if the request are including the range date or not
         //it there isn't any date, the API will find all the data that existed in the table
         try{
-            if(requestDto.getCreatedAtStart() != null){
+            if(requestDto.getCreatedAtStart() != null && requestDto.getCreatedAtEnd() != null){
                 return weatherRepository.findAllBetweenDates(requestDto.getCreatedAtStart(), requestDto.getCreatedAtEnd());
             }
         }catch(NullPointerException e){
