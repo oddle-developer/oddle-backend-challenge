@@ -43,6 +43,7 @@ public class WeatherController {
         weatherService.deleteWeatherById(id);
     }
 
+    //This endpoint would update the saved weather using the data's id
     @PatchMapping("/weathers/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public Weather updateWeatherById(@PathVariable("id") long id, @RequestBody UpdateWeatherRequestDto requestDto) throws NotFoundException {

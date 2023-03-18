@@ -38,13 +38,14 @@ public class OpenWeatherClient {
 
     public OpenWeatherGetWeatherResponseDto getWeatherByParams(Map<String, String> requestParams){
 
+        //Add the API key to the hash map with the map's key
         addApiKeyParams(requestParams);
 
+        //This will create the combined url, from the hash map
+        //And separates the params from each key in the hash map
         String queryURL = requestParams.keySet().stream()
                 .map(key -> key + "=" + requestParams.get(key))
                 .collect(joining("&", openWeatherBaseUrl + openWeatherVersionPath + openWeatherWeatherPath + "?", ""));
-
-        ParameterizedTypeReference<OpenWeatherGetWeatherResponseDto> responseType = new ParameterizedTypeReference<OpenWeatherGetWeatherResponseDto>() {};
 
         ResponseEntity<OpenWeatherGetWeatherResponseDto> response = restTemplate.exchange(
                 queryURL,
