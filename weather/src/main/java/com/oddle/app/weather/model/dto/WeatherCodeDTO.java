@@ -1,11 +1,12 @@
-package com.oddle.app.weather.model.dto.open.weather;
+package com.oddle.app.weather.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OpenWeatherCode {
+public class WeatherCodeDTO {
 
     private Long id;
 

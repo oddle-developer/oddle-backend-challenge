@@ -1,10 +1,8 @@
 package com.oddle.app.weather.service;
 
-import com.oddle.app.weather.model.dto.open.weather.OpenWeatherDTO;
-
-import java.util.Map;
+import com.oddle.app.weather.model.dto.WeatherDTO;
 
 public interface OpenWeatherService {
 
-    OpenWeatherDTO getCurrentWeather(Map<String, Object> params);
+    WeatherDTO getCurrentWeather(String cityName);
 }

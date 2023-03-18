@@ -19,5 +19,4 @@ public class WeatherCloud extends BaseEntity {
     @Column
     public Double allPercentages;
 
-
 }

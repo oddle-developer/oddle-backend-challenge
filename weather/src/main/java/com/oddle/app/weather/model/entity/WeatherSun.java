@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -27,9 +28,9 @@ public class WeatherSun extends BaseEntity {
     public String message;
 
     @Column
-    public LocalDateTime sunRise;
+    public Date sunRise;
 
     @Column
-    public LocalDateTime sunSet;
+    public Date sunSet;
 
 }

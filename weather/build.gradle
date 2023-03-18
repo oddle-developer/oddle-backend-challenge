@@ -15,15 +15,15 @@ repositories {
 ext {
 	set('lombokVersion', '1.18.20')
 	set('swaggerVersion', '1.2.32')
-	set('jUnitVersion', '5.0.3')
+	set('modelmapperVersion', '2.3.0')
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.apache.httpcomponents:httpclient:4.5'
-//    implementation 'junit:junit:4.12'
 
+	implementation "org.modelmapper:modelmapper:${modelmapperVersion}"
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
 	annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 

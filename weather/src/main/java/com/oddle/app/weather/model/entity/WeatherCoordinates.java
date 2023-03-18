@@ -16,9 +16,9 @@ import javax.persistence.Table;
 @AttributeOverride(name = "id", column = @Column(name = "weather_coordinates_id", nullable = false))
 public class WeatherCoordinates extends BaseEntity {
 
-    @Column(name = "latitude")
+    @Column
     public Double latitude;
 
-    @Column(name = "longitude")
+    @Column
     public Double longitude;
 }
