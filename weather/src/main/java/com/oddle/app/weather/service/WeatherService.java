@@ -1,9 +1,7 @@
 package com.oddle.app.weather.service;
 
 import com.oddle.app.weather.client.OpenWeatherClient;
-import com.oddle.app.weather.dto.GetWeatherResponseDto;
-import com.oddle.app.weather.dto.SaveWeatherDataRequestDto;
-import com.oddle.app.weather.dto.SaveWeatherDataResponseDto;
+import com.oddle.app.weather.dto.*;
 import com.oddle.app.weather.dto.client.OpenWeatherGetWeatherResponseDto;
 import com.oddle.app.weather.entity.Weather;
 import com.oddle.app.weather.repository.WeatherRepository;
@@ -30,7 +28,7 @@ public class WeatherService {
     private final String QUERY_PARAM_NAME="q";
 
 
-    public GetWeatherResponseDto getWeatherByCityName(String cityName){
+    public GetWeatherByCityNameResponseDto getWeatherByCityName(String cityName){
 
         //This will map the city name into the request param hash map
         Map<String, String> requestMap = new HashMap<>();
@@ -41,10 +39,10 @@ public class WeatherService {
 
         //This will map the open weather client response into API response
         MapperFacade mapperFacade = mapperFactory.getMapperFacade();
-        return mapperFacade.map(responseDto,GetWeatherResponseDto.class);
+        return mapperFacade.map(responseDto, GetWeatherByCityNameResponseDto.class);
     }
 
-    public SaveWeatherDataResponseDto saveWeatherData(SaveWeatherDataRequestDto requestDto) throws NotFoundException {
+    public SaveWeatherDataResponseDto saveWeatherData(SaveWeatherDataRequestDto requestDto){
 
         //This will build the entity then save it to its table
         Weather weather = Weather.builder()
@@ -61,6 +59,19 @@ public class WeatherService {
         //This will map the request into API response
         MapperFacade mapperFacade = mapperFactory.getMapperFacade();
         return mapperFacade.map(requestDto, SaveWeatherDataResponseDto.class);
+    }
+
+    public List<Weather> getWeatherData(GetWeatherDataRequestDto requestDto){
+
+        try{
+            if(requestDto.getCreatedAtStart() != null){
+                return weatherRepository.findAllBetweenDates(requestDto.getCreatedAtStart(), requestDto.getCreatedAtEnd());
+            }
+        }catch(NullPointerException e){
+            return weatherRepository.findAll();
+        }
+
+        return weatherRepository.findAll();
     }
 
 }
