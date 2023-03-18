@@ -51,7 +51,7 @@ public class WeatherController {
 
     @PutMapping("/edit")
     public Response editWeather(@RequestBody WeatherUpdate update) {
-        return weatherService.saveWeather(update);
+        return weatherService.editWeather(update);
     }
 
     @DeleteMapping("/delete/{id}")

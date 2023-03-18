@@ -1,5 +1,7 @@
 package com.oddle.app.weather.service.impl;
 
+import com.oddle.app.weather.cache.CacheModel;
+import com.oddle.app.weather.cache.WeatherCache;
 import com.oddle.app.weather.constants.CommonConstants;
 import com.oddle.app.weather.exception.CommonBusinessException;
 import com.oddle.app.weather.handler.CommonFilterHandler;
@@ -27,6 +29,7 @@ import com.oddle.app.weather.model.update.WeatherUpdate;
 import com.oddle.app.weather.repository.WeatherRepository;
 import com.oddle.app.weather.service.OpenWeatherService;
 import com.oddle.app.weather.service.WeatherService;
+import com.oddle.app.weather.utils.CacheUtils;
 import com.oddle.app.weather.utils.DateUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +71,19 @@ public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter
         return Response.success("Ok");
     }
 
+    @Override
     public Map<String, Object> getHistoryWeather(HistoryWeatherFilter filter) {
-        return super.processFilter(filter);
+        if (Objects.isNull(filter)) {
+            throw new CommonBusinessException("Invalid filter", HttpStatus.BAD_REQUEST.value());
+        }
+        String cacheKey = CacheUtils.getCacheKeyForHistoryWeather(filter);
+        CacheModel<Map<String, Object>> cacheModel = WeatherCache.getData(cacheKey);
+        if (Objects.nonNull(cacheModel)) {
+            return cacheModel.getData();
+        }
+        Map<String, Object> result = super.processFilter(filter);
+        WeatherCache.putData(cacheKey, result, 10000L);
+        return result;
     }
 
     @Override

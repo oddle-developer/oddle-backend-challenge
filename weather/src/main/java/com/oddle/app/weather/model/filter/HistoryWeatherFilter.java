@@ -8,4 +8,5 @@ import lombok.EqualsAndHashCode;
 public class HistoryWeatherFilter extends BaseFilter {
 
     private String cityName;
+
 }
