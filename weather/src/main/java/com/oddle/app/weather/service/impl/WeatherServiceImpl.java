@@ -36,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -61,6 +62,11 @@ public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter
         Weather weather = modelMapper.map(update, Weather.class);
         weatherRepository.save(weather);
         return Response.success("Ok");
+    }
+
+    @Async
+    public void saveWeatherAsync(WeatherUpdate update){
+
     }
 
     @Override
@@ -154,7 +160,7 @@ public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter
     private void checkIfWeatherExists(Long weatherId) {
         Optional<Weather> weather = weatherRepository.findById(weatherId);
         if (!weather.isPresent()) {
-            throw new CommonBusinessException("Weather not found", HttpStatus.NOT_FOUND.value());
+            throw new CommonBusinessException("Weather History not found", HttpStatus.NOT_FOUND.value());
         }
     }
 
