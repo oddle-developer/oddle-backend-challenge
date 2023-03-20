@@ -68,6 +68,7 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public WeatherLogDto save(WeatherLogDto dto) {
+		log.info("save function - {}", dto);
 		if (repository.existsByCityAndDate(dto.getCity(), dto.getDate())) {
 			throw new BusinessException("Duplicate");
 		}
@@ -77,6 +78,7 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public List<WeatherLogDto> getPastPeriod(String city, Date startDate, Date endDate) {
+		log.info("get past period - {} {} {}", city, startDate, endDate);
 		if (Objects.isNull(endDate)) {
 			endDate = startDate;
 		}
@@ -88,11 +90,13 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public void deleteById(Long id) {
+		log.info("delete by id - {}", id);
 		repository.deleteById(id);
 	}
 
 	@Override
 	public void updateWeather(WeatherLogDto dto) {
+		log.info("update weather {}", dto);
 		WeatherLog weatherLog = repository.findById(dto.getId()).orElseThrow(() -> new BusinessException("Not exist!"));
 		this.mapper.map(dto, weatherLog);
 		repository.save(weatherLog);
