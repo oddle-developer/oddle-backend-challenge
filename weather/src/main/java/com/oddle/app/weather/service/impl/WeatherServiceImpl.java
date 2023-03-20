@@ -1,11 +1,13 @@
 package com.oddle.app.weather.service.impl;
 
+import com.oddle.app.weather.config.OpenWeatherMapConfigProperties;
 import com.oddle.app.weather.exception.BusinessException;
 import com.oddle.app.weather.dto.WeatherLogDto;
 import com.oddle.app.weather.dto.WeatherResponseDto;
 import com.oddle.app.weather.entity.WeatherLog;
 import com.oddle.app.weather.repository.WeatherRepository;
 import com.oddle.app.weather.service.WeatherService;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,29 +15,40 @@ import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @Slf4j
 public class WeatherServiceImpl implements WeatherService {
 
-	@Autowired
-	private WeatherRepository repository;
+	private final WeatherRepository repository;
 
-	@Autowired
-	private ModelMapper mapper;
+	private final ModelMapper mapper;
+
+	private final OpenWeatherMapConfigProperties openWeatherMapConfigProperties;
+
+	public WeatherServiceImpl(WeatherRepository repository, ModelMapper mapper,
+	                          OpenWeatherMapConfigProperties openWeatherMapConfigProperties) {
+		this.repository = repository;
+		this.mapper = mapper;
+		this.openWeatherMapConfigProperties = openWeatherMapConfigProperties;
+	}
 
 	@Override
 	public WeatherLogDto getWeatherByCityName(String city) {
 		log.info("get weather by city name - {}", city);
 		try {
 			RestTemplate restTemplate = new RestTemplate();
-			String uri =
-				"https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=6017eefecc6b8fe6ed5dcfbe053b592f&units"
-					+ "=metric";
+			URI uri = UriComponentsBuilder.fromHttpUrl(openWeatherMapConfigProperties.getUrl())
+			                              .queryParam("q", city)
+			                              .queryParam("appid", openWeatherMapConfigProperties.getApiKey())
+			                              .queryParam("units", "metric").build().toUri();
 
 			ResponseEntity<WeatherResponseDto> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, null,
 			                                                                          WeatherResponseDto.class);
