@@ -8,6 +8,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,7 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "weatherLog")
+@Table(name = "weatherLog", indexes = @Index(columnList = "city,date") )
 @EntityListeners(AuditingEntityListener.class)
 public class WeatherLog implements Serializable {
 
