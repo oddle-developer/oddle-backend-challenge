@@ -21,26 +21,27 @@ public class WeatherDeserial extends StdDeserializer<WeatherLogDto> {
 	}
 
 	@Override
-	public WeatherLogDto deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+	public WeatherLogDto deserialize(JsonParser jsonParser, DeserializationContext ctxt)
+		throws IOException, JsonProcessingException {
 		JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-		try{
+		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
-
 			WeatherLogDto responseDto = WeatherLogDto
 				.builder()
-				.date(sdf.format(new Date(node.get("dt").asLong()*1000)))
+				.date(new Date(node.get("dt").asLong() * 1000))
 				.temporary(node.get("main").get("temp").asText())
 				.temporaryMin(node.get("main").get("temp_min").asText())
 				.temporaryMax(node.get("main").get("temp_max").asText())
 				.city(node.get("name").asText())
 				.build();
 			JsonNode weathers = node.get("weather");
-			if (weathers.isArray() && weathers.size() > 0){
+			if (weathers.isArray() && weathers.size() > 0) {
 				responseDto.setWeatherType(weathers.get(0).get("main").asText());
 				responseDto.setWeatherDesc(weathers.get(0).get("description").asText());
 			}
 			return responseDto;
-		}catch (Exception e){
+		}
+		catch (Exception e) {
 			throw new RuntimeException(e.getCause());
 		}
 	}

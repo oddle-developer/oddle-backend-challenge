@@ -1,9 +1,9 @@
 package com.oddle.app.weather.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.oddle.app.weather.deserializer.WeatherDeserial;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class WeatherResponseDto implements Serializable {
 
 	private static final long serialVersionUID = -2779357385065635523L;
 
-	private String date;
+	private Date date;
 	private String weatherType;
 	private String weatherDesc;
 	private String temporary;
