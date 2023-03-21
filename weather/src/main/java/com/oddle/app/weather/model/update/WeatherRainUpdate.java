@@ -10,7 +10,6 @@ public class WeatherRainUpdate {
 
     private Double threeHours;
 
-
     public WeatherRainUpdate(@JsonProperty("1h") Double oneHour, @JsonProperty("3h") Double threeHours) {
         this.oneHour = oneHour;
         this.threeHours = threeHours;

@@ -1,7 +1,11 @@
 package com.oddle.app.weather.model.update;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,10 +19,11 @@ public class WeatherUpdate {
 
     private Integer visibility;
 
-    private Date dateTimeCalculation;
+    private Long dateTimeCalculation;
 
     private Integer timezone;
 
+    @Size(min = 0, max = 200)
     private String name;
 
     private String cod;
@@ -31,8 +36,10 @@ public class WeatherUpdate {
 
     private WeatherCloudUpdate weatherCloud;
 
+    @Schema(description = "Can be null")
     private WeatherRainUpdate weatherRain;
 
+    @Schema(description = "Can be null")
     private WeatherSnowUpdate weatherSnow;
 
     private WeatherSunUpdate weatherSun;

@@ -36,9 +36,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +47,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter, Weather> implements WeatherService {
 
     private static final ModelMapper modelMapper = new ModelMapper();
@@ -60,13 +61,9 @@ public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter
     @Override
     public Response saveWeather(WeatherUpdate update) {
         Weather weather = modelMapper.map(update, Weather.class);
+        weather.setDateTimeCalculation(DateUtils.convertLongToDate(update.getDateTimeCalculation()));
         weatherRepository.save(weather);
         return Response.success("Ok");
-    }
-
-    @Async
-    public void saveWeatherAsync(WeatherUpdate update){
-
     }
 
     @Override

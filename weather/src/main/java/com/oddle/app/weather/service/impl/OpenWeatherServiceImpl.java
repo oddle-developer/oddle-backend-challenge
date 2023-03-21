@@ -48,7 +48,8 @@ public class OpenWeatherServiceImpl extends RestClientSupport implements OpenWea
             }, params);
             WeatherCache.putData(keyCache, result, 5000L);
             return result;
-        } catch (HttpStatusCodeException e) { // case not found city
+        } catch (HttpStatusCodeException e) {
+            // case not found city from external API
             if (HttpStatus.NOT_FOUND.equals(e.getStatusCode()) && Objects.requireNonNull(e.getMessage()).contains(MESSAGE_CITY_NOT_FOUND_FROM_OPEN_WEATHER)) {
                 throw new CommonBusinessException("City Not found", HttpStatus.NOT_FOUND.value());
             }
@@ -56,7 +57,4 @@ public class OpenWeatherServiceImpl extends RestClientSupport implements OpenWea
         }
     }
 
-//    private WeatherCloud mappingWeatherCloudEntity(WeatherCloudDTO cloud){
-//        WeatherCloud
-//    }
 }

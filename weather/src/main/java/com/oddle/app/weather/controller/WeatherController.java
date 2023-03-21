@@ -5,6 +5,7 @@ import com.oddle.app.weather.model.response.Response;
 import com.oddle.app.weather.model.update.WeatherUpdate;
 import com.oddle.app.weather.service.OpenWeatherService;
 import com.oddle.app.weather.service.WeatherService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/weather")
+@RequestMapping("/api/weather/v1")
 public class WeatherController {
 
     @Autowired
@@ -39,6 +40,7 @@ public class WeatherController {
         return Response.success(openWeatherService.getCurrentWeather(cityName));
     }
 
+    @Operation(description = "From and To must be in format yyyy-MM-dd HH:mm:ss, Example: 2022-03-21 12:25:59")
     @GetMapping("/history")
     public Response getHistoryWeather(HistoryWeatherFilter filter) {
         return Response.success(weatherService.getHistoryWeather(filter));
@@ -55,7 +57,7 @@ public class WeatherController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public Response deleteWeatherHistory(@PathVariable Long id){
+    public Response deleteWeatherHistory(@PathVariable Long id) {
         return weatherService.deleteWeatherHistory(id);
     }
 

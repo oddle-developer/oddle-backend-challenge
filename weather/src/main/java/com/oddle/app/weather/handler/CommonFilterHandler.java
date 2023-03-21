@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public abstract class CommonFilterHandler<K extends BaseFilter, V extends BaseEn
         Map<String, Object> result = new HashMap<>();
         this.validation(filter);
         Page<V> data = this.getData(filter);
-        this.markUpData(data,result);
+        this.markUpData(data, result);
         this.calculatePaging(data, result);
         return result;
     }
@@ -41,10 +42,14 @@ public abstract class CommonFilterHandler<K extends BaseFilter, V extends BaseEn
     }
 
     protected void validation(K filter) {
-        LocalDateTime fromDate = DateUtils.convertStringToLocalDateTime(filter.getFrom());
-        LocalDateTime toDate = DateUtils.convertStringToLocalDateTime(filter.getTo());
-        if (fromDate.isAfter(toDate)) {
-            throw new CommonBusinessException("Invalid value of From/To Date, From Date need to be the same/before To Date", HttpStatus.BAD_REQUEST.value());
+        try {
+            LocalDateTime fromDate = DateUtils.convertStringToLocalDateTime(filter.getFrom());
+            LocalDateTime toDate = DateUtils.convertStringToLocalDateTime(filter.getTo());
+            if (fromDate.isAfter(toDate)) {
+                throw new CommonBusinessException("Invalid value of From/To Date, From Date need to be the same/before To Date", HttpStatus.BAD_REQUEST.value());
+            }
+        } catch (DateTimeParseException e) {
+            throw new CommonBusinessException("Invalid value from/to", HttpStatus.BAD_REQUEST.value());
         }
     }
 }

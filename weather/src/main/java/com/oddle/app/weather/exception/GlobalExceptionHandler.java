@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ErrorMessage globalExceptionHandler(Exception ex, WebRequest request) {
-        log.error(String.format("Exception: %s", ex));
+        log.error("Exception: %s", ex);
         return new ErrorMessage(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 new Date(),
@@ -24,12 +24,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CommonBusinessException.class)
     public ErrorMessage commonBusinessExceptionHandler(CommonBusinessException ex, WebRequest request) {
-        log.error(String.format("Common Business Exception: %s", ex));
+        log.error("Common Business Exception: ", ex);
         int code = ex.getCode() != 0 ? ex.getCode() : HttpStatus.INTERNAL_SERVER_ERROR.value();
         return new ErrorMessage(
                 code,
                 new Date(),
                 ex.getMessage(),
-                "Internal server error");
+                HttpStatus.valueOf(code).getReasonPhrase());
     }
 }

@@ -1,7 +1,5 @@
 package com.oddle.app.weather.cache;
 
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -16,13 +14,17 @@ public class WeatherCache {
      * To convert to timestamp just multiply it with 100
      * DEFAULT EXPIRED TIME will be 10minutes
      */
-    private static final long DEFAULT_EXPIRED_TIME = 600000L;
+    private static final long DEFAULT_EXPIRED_TIME = 600_000L;
 
     /*
       Since this class is used for cache, so prevent from creating instance
      */
     private WeatherCache() {
 
+    }
+
+    public static <T> void putData(String key, T data) {
+        putData(key, data, DEFAULT_EXPIRED_TIME);
     }
 
     public static <T> void putData(String key, T data, Long expiredTime) {
@@ -55,5 +57,12 @@ public class WeatherCache {
 
     public static <T> void removeData(String key) {
         cacheMap.remove(key);
+    }
+
+    /*
+        use to get cache map for debugging
+     */
+    public static Map<String, CacheModel> getCacheMap() {
+        return cacheMap;
     }
 }
