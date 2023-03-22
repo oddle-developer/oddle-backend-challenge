@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Date;
 
 @RestControllerAdvice
@@ -31,5 +32,16 @@ public class GlobalExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 HttpStatus.valueOf(code).getReasonPhrase());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ErrorMessage handleBindException(ConstraintViolationException e) {
+        StringBuilder message = new StringBuilder("");
+        e.getConstraintViolations().forEach(error -> message.append(error.getMessage()));
+        return new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                message.toString(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase());
     }
 }

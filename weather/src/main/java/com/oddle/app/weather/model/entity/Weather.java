@@ -1,11 +1,11 @@
 package com.oddle.app.weather.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -13,9 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import java.time.LocalDateTime;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +25,8 @@ import java.util.List;
 @AttributeOverride(name = "id", column = @Column(name = "weather_id", nullable = false))
 public class Weather extends BaseEntity {
 
-    @Column(length = 200)
+    @Column
+    @Size(max = 200, message ="base length should be shorter or equals 200")
     private String base;
 
     @Column
@@ -39,7 +38,8 @@ public class Weather extends BaseEntity {
     @Column
     private Integer timezone;
 
-    @Column(length = 200)
+    @Column
+    @Size(max = 200, message ="description length should be shorter or equals 200")
     private String name;
 
     @Column(length = 100)

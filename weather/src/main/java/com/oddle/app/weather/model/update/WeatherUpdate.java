@@ -23,7 +23,6 @@ public class WeatherUpdate extends BaseModelUpdate{
 
     private Integer timezone;
 
-    @Size(min = 0, max = 200)
     private String name;
 
     private String cod;

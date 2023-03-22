@@ -3,6 +3,10 @@ package com.oddle.app.weather.model.update;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
+
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class WeatherSunUpdate extends BaseModelUpdate {
@@ -11,6 +15,7 @@ public class WeatherSunUpdate extends BaseModelUpdate {
 
     private Long id;
 
+    @Size( max = 2, message = "Country code is invalid")
     private String countryCode;
 
     private Long sunRise;

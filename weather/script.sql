@@ -9,11 +9,11 @@ CREATE TABLE `hibernate_sequence` (
 CREATE TABLE weather(
 	`weather_id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 	`base` VARCHAR(200) DEFAULT '',
-	`visibility` int DEFAULT '0',
+	`visibility` INT DEFAULT '0',
 	`date_time_calculation` TIMESTAMP NULL,
-	`timezone` int DEFAULT '0',
+	`timezone` INT DEFAULT '0',
 	`name` VARCHAR(200) DEFAULT '',
-	`cod` VARCHAR(100)  DEFAULT '',
+	`cod` INT  DEFAULT 0,
 	`weather_coordinates_id` BIGINT NOT NULL,
 	`weather_main_id` BIGINT,
 	`weather_wind_id` BIGINT,
@@ -29,9 +29,6 @@ CREATE TABLE weather_coordinates(
 	`weather_coordinates_id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 	`latitude` DECIMAL(10,4) DEFAULT '0.0000',
 	`longitude` DECIMAL(10,4) DEFAULT '0.0000',
-	`city_name` VARCHAR(200) DEFAULT '',
-	`country` VARCHAR(100) DEFAULT '',
-    `state` VARCHAR(100) DEFAULT NULL,
 	`created_date` TIMESTAMP NULL DEFAULT NOW(),
 	`updated_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -24,9 +25,11 @@ public class WeatherCode extends BaseEntity {
     private WeatherCodeMainEnum weatherCodeMain;
 
     @Column(name = "weather_description")
+    @Size(max = 200, message ="weather code description length should be shorter or equals 200")
     private String weatherCodeDescription;
 
     @Column(name = "weather_icon")
+    @Size(max = 200, message ="weather code icon length should be shorter or equals 20")
     private String weatherCodeIcon;
 
 }
