@@ -2,9 +2,11 @@ package com.oddle.app.weather.model.update;
 
 import com.sun.istack.Nullable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class WeatherMainUpdate {
+@EqualsAndHashCode(callSuper = true)
+public class WeatherMainUpdate extends BaseModelUpdate{
 
     private Double temperature;
 

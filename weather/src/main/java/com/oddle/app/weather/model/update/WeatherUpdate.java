@@ -3,6 +3,7 @@ package com.oddle.app.weather.model.update;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Size;
@@ -10,10 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class WeatherUpdate {
-
-    private Long id;
+public class WeatherUpdate extends BaseModelUpdate{
 
     private String base;
 

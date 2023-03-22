@@ -18,8 +18,5 @@ public interface WeatherRepository extends JpaRepository<Weather, Long> {
 
     Optional<Weather> findByName(String name);
 
-    @Query("select w from Weather w where w.name = :cityName")
-    Optional<Weather> findWeatherByNameCustom(@Param("cityName") String cityName);
-
-    Page<Weather> findAllByCreatedDateBetween(LocalDateTime from, LocalDateTime to, Pageable pageRequest);
+    Page<Weather> findByCreatedDateBetween(LocalDateTime from, LocalDateTime to, Pageable pageRequest);
 }

@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ErrorMessage globalExceptionHandler(Exception ex, WebRequest request) {
-        log.error("Exception: %s", ex);
+        log.error("Exception: ", ex);
         return new ErrorMessage(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 new Date(),

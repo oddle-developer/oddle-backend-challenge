@@ -19,7 +19,7 @@ public abstract class CommonFilterHandler<K extends BaseFilter, V extends BaseEn
     public Map<String, Object> processFilter(K filter) {
         Map<String, Object> result = new HashMap<>();
         this.validation(filter);
-        Page<V> data = this.getData(filter);
+        Page<V> data = getData(filter);
         this.markUpData(data, result);
         this.calculatePaging(data, result);
         return result;

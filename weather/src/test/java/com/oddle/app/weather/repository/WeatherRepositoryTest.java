@@ -31,8 +31,8 @@ public class WeatherRepositoryTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         LocalDateTime from = LocalDateTime.parse("2023-03-18 12:56:27.000", formatter);
         LocalDateTime to = LocalDateTime.parse("2023-03-18 13:02:32.000", formatter);
-        PageRequest pageRequest = PageRequest.of(1,2);
-        Page<Weather> result = weatherRepository.findAllByCreatedDateBetween(from, to, pageRequest);
+        PageRequest pageRequest = PageRequest.of(0,2);
+        Page<Weather> result = weatherRepository.findByCreatedDateBetween(from, to, pageRequest);
         assertThat(result.getContent().get(0).getCodes().get(0).getWeatherCodeMain()).isEqualTo(WeatherCodeMainEnum.CLEAR.toString());
     }
 }

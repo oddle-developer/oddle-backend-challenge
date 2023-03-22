@@ -1,10 +1,11 @@
 package com.oddle.app.weather.model.update;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class WeatherSunUpdate {
+public class WeatherSunUpdate extends BaseModelUpdate {
 
     private Integer type;
 

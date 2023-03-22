@@ -31,6 +31,7 @@ import com.oddle.app.weather.service.OpenWeatherService;
 import com.oddle.app.weather.service.WeatherService;
 import com.oddle.app.weather.utils.CacheUtils;
 import com.oddle.app.weather.utils.DateUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -85,7 +86,12 @@ public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter
             return cacheModel.getData();
         }
         Map<String, Object> result = super.processFilter(filter);
-        WeatherCache.putData(cacheKey, result, 10000L);
+        /*
+            Only add to cache if there's data
+         */
+        if(!ObjectUtils.isEmpty(result.get(CommonConstants.DATA))){
+            WeatherCache.putData(cacheKey, result, 10000L);
+        }
         return result;
     }
 
@@ -104,7 +110,8 @@ public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter
             toDate = toDate.plusDays(1).toLocalDate().atStartOfDay();
         }
         PageRequest pageRequest = PageRequest.of(filter.getPageNumber(), filter.getPageSize());
-        return weatherRepository.findAllByCreatedDateBetween(fromDate, toDate, pageRequest);
+        Page<Weather> result = weatherRepository.findByCreatedDateBetween(fromDate, toDate, pageRequest);
+        return result;
     }
 
     @Override
@@ -155,6 +162,9 @@ public class WeatherServiceImpl extends CommonFilterHandler<HistoryWeatherFilter
     }
 
     private void checkIfWeatherExists(Long weatherId) {
+        if(Objects.isNull(weatherId) || weatherId == 0){
+            throw new CommonBusinessException("Weather History not found", HttpStatus.NOT_FOUND.value());
+        }
         Optional<Weather> weather = weatherRepository.findById(weatherId);
         if (!weather.isPresent()) {
             throw new CommonBusinessException("Weather History not found", HttpStatus.NOT_FOUND.value());
