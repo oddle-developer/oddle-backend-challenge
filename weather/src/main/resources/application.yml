@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: oddle-challenge
+
+server:
+  port: 8500

@@ -18,3 +18,11 @@ These additional references should also help you:
 
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
+#########--How to Use--######
+Make sure you set "spring.profile.active" is "dev" to get the config from application-dev.properties. However, you still can set profile to the one you want and remember to add config to the corresponding application properties.
+And then update config username and password in properties file to your local Mysql account
+
+if you don't want table to be auto generated then set "spring.jpa.hibernate.ddl-auto" to none and run script.sql
+
+For API Documentation,you can go to localhost:8500/swagger-ui.html for all informations
+
